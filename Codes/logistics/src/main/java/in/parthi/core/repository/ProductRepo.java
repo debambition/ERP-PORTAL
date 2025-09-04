@@ -59,8 +59,7 @@ public class ProductRepo {
 
             throw new RuntimeException("The product with id " + product.getId() + " Already present in database, Unable to create the product");
 
-            throw new RuntimeException("The product with id " + product.getId()
-                    + " Already present in database, Unable to create the product");
+           
 
         }
 
@@ -80,14 +79,15 @@ public class ProductRepo {
      */
 
 
+    public Product returnToVendor(String id ) throws RuntimeException{
+        Product product = null;       
 
-    
-    public String returnToVendor(String id ) throws RuntimeException{
-        String response = "";
         //boolean hasProduct = true;
         for(Product tempProduct : productList){
             if(tempProduct.getId().equalsIgnoreCase(id)){
-                tempProduct.setStatus("Return");
+               tempProduct.setStatus("Return");
+                product = tempProduct;
+               
                               
                 break;
             }
@@ -98,14 +98,16 @@ public class ProductRepo {
 
            }*/
 
-            productList.remove(id);
+           /*  productList.remove(id);
             response = "Product is removed successfully";
-            logger.info("Product with id" + id + "is removed from database ");
+            logger.info("Product with id" + id + "is removed from database ");*/
         }
 
-        return response;
+        return product;
 
     }
+    
+    
 
 
 

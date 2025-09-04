@@ -22,6 +22,7 @@ public class TransactionInterface {
         String response = "";
         logger.info("Start taking transaction details from user");
         Scanner sc = Properties.getSacnnerInstance();
+        sc.nextLine();
         Transaction transaction = new Transaction();
         try {
             // Take transaction details from user

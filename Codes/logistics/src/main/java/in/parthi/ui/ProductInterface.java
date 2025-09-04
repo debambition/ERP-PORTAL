@@ -23,6 +23,7 @@ public class ProductInterface {
 
         Product product = null;
         Scanner sc = Properties.getSacnnerInstance();
+        sc.nextLine();
         logger.info("Start taking product details from user");
         System.out.print("Enter Product ID: ");
         String id = sc.nextLine();
@@ -38,6 +39,7 @@ public class ProductInterface {
     public String addProduct() {
         String response = "";
         Scanner sc = Properties.getSacnnerInstance();
+        sc.nextLine();
         logger.info("Start taking product details from user");
         Product product = new Product();
         try {
@@ -93,10 +95,11 @@ public class ProductInterface {
 
     public String returnTovendor() {
         String response = null;
-        Scanner sc3 = Properties.getSacnnerInstance();
+        Scanner sc = Properties.getSacnnerInstance();
+        sc.nextLine();
         logger.info("Taking product id from the user");
         System.out.print("Please enter product id: ");
-        String id = sc3.nextLine();
+        String id = sc.nextLine();
         response = productService.returnToVendor(id);
 
         return response;

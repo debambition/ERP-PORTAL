@@ -11,7 +11,9 @@ public class ProductInterface {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductInterface.class);
 
+
     ProductRepo productRepo = new ProductRepo();
+
 
     /**
      * This method take a product details and call repo class to add the product.

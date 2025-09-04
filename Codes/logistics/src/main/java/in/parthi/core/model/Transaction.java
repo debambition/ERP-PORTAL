@@ -1,3 +1,4 @@
+
 /**
  * This is a Transaction class that provide  the defination of the transaction and provides all the method
  * thats required to maintain the transaction.
@@ -5,6 +6,7 @@
  * @author Abhishek Ray
  * @since 2025-08-30
  */
+
 package in.parthi.core.model;
 
 import java.time.LocalDate;

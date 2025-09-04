@@ -14,9 +14,6 @@ public class ProductInterface {
     
     ProductService productService = new ProductService();
 
-
-    ProductRepo productRepo = new ProductRepo();
-
     /**
      * This method take a product id and call repo class to retrieve the corresponding product.
      * 
@@ -33,8 +30,6 @@ public class ProductInterface {
         return product;
     }
 
-
-
     /**
      * This method take a product details and call repo class to add the product.
      * 
@@ -49,6 +44,8 @@ public class ProductInterface {
             // Take Stocking date from user
             LocalDate today = LocalDate.now();
             System.out.print("Enter Stockin Date e.g 2025-09-23 (default: " + today.toString() + "): ");
+
+
             String strDate = sc.nextLine();
             if (strDate.length() == 0) {
                 product.setStockInDate(today);
@@ -91,4 +88,26 @@ public class ProductInterface {
         } 
         return response;
     }
+
+
+
+    public Product returnTovendor(){
+        Product productId = null;
+        Scanner sc3 = new  Scanner(System.in);
+        logger.info("Taking product id from the user");
+        System.out.print("Please enter product id: ");
+        String id = sc3.nextLine();
+        productId = productService.returnToVendor(id);
+
+        return productId;
+
+    }
+
+
+
 }
+
+
+ 
+
+

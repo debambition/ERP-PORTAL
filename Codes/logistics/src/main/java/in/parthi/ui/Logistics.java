@@ -13,39 +13,6 @@ public class Logistics {
 
     public static void main(String[] args) {
         Logistics logistics = new Logistics();
-
-        int option = logistics.getOption();
-
-
-        ProductInterface productInterface = new ProductInterface();
-
-        ProductInterface productService = new ProductInterface();
-
-
-        switch (option) {
-            case 1:
-                System.out.println("============Adding Product==========");
-
-                String response = productInterface.addProduct();
-
-                String response = productService.addProduct();
-
-                System.out.println(response);
-                break;
-            case 2:
-                System.out.println("============Return Product==========");
-
-                break;
-            case 3:
-                System.out.println("============Adding Transaction==========");
-                break;
-            case 4:
-                System.out.println("============Adding Customer==========");
-                break;
-            default:
-                break;
-        }
-
         ProductInterface productInterface = new ProductInterface();
         Scanner sc1 = new Scanner(System.in);
         int option = 0;
@@ -65,6 +32,9 @@ public class Logistics {
                     break;
                 case 3:
                     System.out.println("============Return Product==========");
+                    Product responId = productInterface.returnTovendor();
+                    System.out.println(responId.toString());
+
                     break;
                 case 4:
                     System.out.println("============Adding Transaction==========");
@@ -79,7 +49,6 @@ public class Logistics {
         } while (option >= 1 && option < 5);
 
         sc1.close();
-
 
     }
 
@@ -110,7 +79,7 @@ public class Logistics {
             System.err.println(e.getMessage());
             logger.warn(e.getMessage());
         } finally {
-
+            // getChoice.close();
         }
         return choice;
     }

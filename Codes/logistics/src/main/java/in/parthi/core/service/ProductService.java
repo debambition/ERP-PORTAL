@@ -39,10 +39,33 @@ public class ProductService {
             response = productRepo.addProduct(product);
         } catch (RuntimeException e) {
             response = e.getLocalizedMessage();
-
             logger.error("Exception occured while adding product: " + e.getLocalizedMessage());
-
         }
         return response;
+    }
+
+     /**
+     * This method take a product details and  remove product from the database.
+     * 
+     * @param Product that need to be delete to the database
+     * @return Returns the responce
+     */
+
+    public Product returnToVendor(String id){
+        //String response = "";
+        Product product = null;
+        try{
+           
+           product = productRepo.returnToVendor(id);
+        }
+        catch (RuntimeException e){
+                  
+            logger.error("Exception occured while returning product:" + e.getLocalizedMessage());
+
+        }
+
+        return product;
+        
+
     }
 }

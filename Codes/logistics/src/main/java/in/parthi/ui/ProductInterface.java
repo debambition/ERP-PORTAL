@@ -4,15 +4,35 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import in.parthi.common.Properties;
 import in.parthi.core.model.Product;
-import in.parthi.core.repository.ProductRepo;
+import in.parthi.core.service.ProductService;
 
 public class ProductInterface {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductInterface.class);
+    
+    ProductService productService = new ProductService();
 
 
     ProductRepo productRepo = new ProductRepo();
+
+    /**
+     * This method take a product id and call repo class to retrieve the corresponding product.
+     * 
+     * @return Returns a Product matching with product ID
+     */
+    public Product getProduct() {
+
+        Product product =  null;
+        Scanner sc = new Scanner(System.in);
+        logger.info("Start taking product details from user");
+        System.out.print("Enter Product ID: ");
+        String id = sc.nextLine();
+        product = productService.getProduct(id);
+        return product;
+    }
+
 
 
     /**
@@ -22,8 +42,8 @@ public class ProductInterface {
      */
     public String addProduct() {
         String response = "";
-        logger.info("Start taking product details from user");
         Scanner sc = new Scanner(System.in);
+        logger.info("Start taking product details from user");
         Product product = new Product();
         try {
             // Take Stocking date from user
@@ -59,6 +79,8 @@ public class ProductInterface {
 
             System.out.print("Enter Product mrp: ");
             product.setMrp(sc.nextDouble());
+
+            response = productService.addProduct(product);
             
         } catch (Exception e) {
             logger.error(e.getLocalizedMessage());
@@ -66,9 +88,7 @@ public class ProductInterface {
                 System.out.println(str.toString());
             }
             response = e.getLocalizedMessage();
-        } finally {
-            sc.close();
-        }
+        } 
         return response;
     }
 }

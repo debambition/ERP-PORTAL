@@ -70,4 +70,46 @@ public class ProductRepo {
         return response;
     }
 
+
+    /**
+     * This method take a product id and check with  the database.
+     * 
+     * @param Productid that needs to be checked to the database
+     * @return Returns responce 
+     * @throws RuntimeException if the product is not available in the database.
+     */
+
+
+
+    
+    public String returnToVendor(String id ) throws RuntimeException{
+        String response = "";
+        //boolean hasProduct = true;
+        for(Product tempProduct : productList){
+            if(tempProduct.getId().equalsIgnoreCase(id)){
+                tempProduct.setStatus("Return");
+                              
+                break;
+            }
+
+            /*if(hasProduct){
+                response="Product is not found in database";
+                logger.warn("Product with id"+ id+ "not found in database");
+
+           }*/
+
+            productList.remove(id);
+            response = "Product is removed successfully";
+            logger.info("Product with id" + id + "is removed from database ");
+        }
+
+        return response;
+
+    }
+
+
+
+    
+    
+
 }

@@ -119,7 +119,11 @@ public class Product {
     public void setStockOutDate(LocalDate stockOutDate) {
         this.stockOutDate = stockOutDate;
     }
-    
 
+    public String toString() {
+        return "ID: " + this.getId() + "\n" + "Category: " + this.getCategory() + "\n" + "Name: " + this.getName() + "\n" + "Description: " + this.getDescription() + "\n" + "MRP: " + this.getMrp()
+                + "\n" + "Cost Price: " + this.getCostPrice() + "\n" + "Status: " + this.getStatus() + "\n" + "Check In Date: " + this.getStockInDate() + "\n" + "Check Out Date: "
+                + this.getStockOutDate();
+    }
 
 }

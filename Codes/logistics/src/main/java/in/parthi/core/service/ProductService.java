@@ -10,6 +10,29 @@ public class ProductService {
 
     ProductRepo productRepo = new ProductRepo();
 
+    /**
+     * This method take a an procuct id and retrieve the product from the database.
+     * 
+     * @param String id with which the product needs to be found
+     * @return Returns the product
+     * @throws RuntimeException if the product is unavailable in the database.
+     */
+    public Product getProduct(String id) {
+        Product response = null;
+        try {
+            response = productRepo.getProduct(id);
+        } catch (RuntimeException e) {
+            logger.error("Exception occured while adding product: " + e.getLocalizedMessage());
+        }
+        return response;
+    }
+
+    /**
+     * This method take a product details and add it to the database.
+     * 
+     * @param Product that need to be added to the database
+     * @return Returns the choice of the user
+     */
     public String addProduct(Product product) {
         String response = "";
         try {

@@ -1,0 +1,5 @@
+package in.parthi.common;
+
+public enum TransactionCategory {
+    TRAVEL,FOOD,SALARY,OPERATION_COST,SALES,INSTALLMENT,PRODUCT__COST,ACCESORIES, ADVERTISEMENT, CAMPAIGN_COST
+}

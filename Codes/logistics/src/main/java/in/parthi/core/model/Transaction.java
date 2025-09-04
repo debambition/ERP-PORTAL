@@ -1,7 +1,7 @@
 
 /**
- * This is a Transaction class that provide  the defination of the transaction and provides all the method
- * thats required to maintain the transaction.
+ * This is a Transaction class that provide the defination of the transaction and provides all the
+ * method thats required to maintain the transaction.
  *
  * @author Abhishek Ray
  * @since 2025-08-30
@@ -10,28 +10,65 @@
 package in.parthi.core.model;
 
 import java.time.LocalDate;
+import java.util.UUID;
+import in.parthi.common.PaymentMode;
+import in.parthi.common.TransactionCategory;
+import in.parthi.common.TransactionType;
 
 public class Transaction {
     private String id;
-    private String productId;
-    private String customerId;
-    private String transactionType; // TODO Create a enum for the status with PURCHASE, RETURN
-    private String paymentMode; // TODO Create a enum for the status with CASH, CARD, UPI, NETBANKING
-    String status; // TODO Create a enum for the status with PENDING, COMPLETED, FAILED
+    private String invoice;
+    private String particular;
+    private TransactionType txnType; 
+    private TransactionCategory txnCategory; 
+                                
+    private PaymentMode paymentMode;
+    private String description;
     private double amount;
-    LocalDate transactionDate; 
+    LocalDate transactionDate;
 
-    public Transaction() {}
+    public String getInvoice() {
+        return invoice;
+    }
 
-    public Transaction(String id, String productId, String customerId, String transactionType, String paymentMode, double amount, LocalDate transactionDate, String status) {
-        this.id = id;
-        this.productId = productId;
-        this.customerId = customerId;
-        this.transactionType = transactionType;
+    public void setInvoice(String invoice) {
+        this.invoice = invoice;
+    }
+
+    public Transaction() {
+        this.id = UUID.randomUUID().toString();
+    }
+
+    public Transaction(String invoice, String particular, TransactionType txnType, TransactionCategory txnCategory, PaymentMode paymentMode, String description, double amount, LocalDate transactionDate) {
+        this.id = UUID.randomUUID().toString();
+        this.invoice = invoice;
+        this.particular = particular;
+        this.txnType = txnType;
+        this.txnCategory = txnCategory;
         this.paymentMode = paymentMode;
+        this.description = description;
         this.amount = amount;
         this.transactionDate = transactionDate;
-        this.status = status;
+    }
+
+    
+
+    public String getParticular() {
+        return particular;
+    }
+
+    public void setParticular(String particular) {
+        this.particular = particular;
+    }
+
+    
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getId() {
@@ -42,35 +79,27 @@ public class Transaction {
         this.id = id;
     }
 
-    public String getProductId() {
-        return this.productId;
+    public TransactionType getTxnType() {
+        return this.txnType;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setTxnType(TransactionType txnType) {
+        this.txnType = txnType;
     }
 
-    public String getCustomerId() {
-        return this.customerId;
+    public TransactionCategory getTxnCategory() {
+        return this.txnCategory;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setTxnCategory(TransactionCategory txnCategory) {
+        this.txnCategory = txnCategory;
     }
 
-    public String getTransactionType() {
-        return this.transactionType;
-    }
-
-    public void setTransactionType(String transactionType) {
-        this.transactionType = transactionType;
-    }
-
-    public String getPaymentMode() {
+    public PaymentMode getPaymentMode() {
         return this.paymentMode;
     }
 
-    public void setPaymentMode(String paymentMode) {
+    public void setPaymentMode(PaymentMode paymentMode) {
         this.paymentMode = paymentMode;
     }
 
@@ -89,12 +118,5 @@ public class Transaction {
     public void setTransactionDate(LocalDate transactionDate) {
         this.transactionDate = transactionDate;
     }
-    
-    public String getStatus() {
-        return this.status;
-    }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

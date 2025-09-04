@@ -51,20 +51,19 @@ public class ProductService {
      * @return Returns the responce
      */
 
-    public Product returnToVendor(String id){
+    public String returnToVendor(String id){
         //String response = "";
-        Product product = null;
+        String response = null;
         try{
            
-           product = productRepo.returnToVendor(id);
+           response = productRepo.returnToVendor(id);
         }
         catch (RuntimeException e){
                   
-            logger.error("Exception occured while returning product:" + e.getLocalizedMessage());
-
+            response = e.getLocalizedMessage();
         }
 
-        return product;
+        return response;
         
 
     }

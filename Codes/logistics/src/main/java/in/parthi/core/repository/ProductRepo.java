@@ -1,9 +1,11 @@
 package in.parthi.core.repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import in.parthi.common.Properties;
 import in.parthi.core.model.Product;
 
 public class ProductRepo {
@@ -59,7 +61,7 @@ public class ProductRepo {
 
             throw new RuntimeException("The product with id " + product.getId() + " Already present in database, Unable to create the product");
 
-           
+
 
         }
 
@@ -71,47 +73,42 @@ public class ProductRepo {
 
 
     /**
-     * This method take a product id and check with  the database.
+     * This method take a product id and check with the database.
      * 
      * @param Productid that needs to be checked to the database
-     * @return Returns responce 
+     * @return Returns responce
      * @throws RuntimeException if the product is not available in the database.
      */
 
 
-    public Product returnToVendor(String id ) throws RuntimeException{
-        Product product = null;       
+    public String returnToVendor(String id) throws RuntimeException {
+        
+        boolean hasProduct = true;
+        String response = null;
 
-        //boolean hasProduct = true;
-        for(Product tempProduct : productList){
-            if(tempProduct.getId().equalsIgnoreCase(id)){
-               tempProduct.setStatus("Return");
-                product = tempProduct;
-               
-                              
+        for (Product tempProduct : productList) {
+            if (tempProduct.getId().equalsIgnoreCase(id)) {
+                tempProduct.setStatus(Properties.STATUS_RETURNED);
+                LocalDate today = LocalDate.now();
+                tempProduct.setStockOutDate(today);
+                hasProduct = true;
+                response = "Product with id "+id+" updated successfully";
+                logger.info(response);
                 break;
             }
 
-            /*if(hasProduct){
-                response="Product is not found in database";
-                logger.warn("Product with id"+ id+ "not found in database");
 
-           }*/
+            if (!hasProduct) {
+                logger.warn("Product with id "+id+" not found: Update failed");
+                throw new RuntimeException("Product with id "+id+" not found: Update failed");
+            }
 
-           /*  productList.remove(id);
-            response = "Product is removed successfully";
-            logger.info("Product with id" + id + "is removed from database ");*/
         }
 
-        return product;
+        return response;
 
     }
-    
-    
 
 
-
-    
-    
 
 }

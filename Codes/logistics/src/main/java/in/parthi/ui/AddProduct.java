@@ -1,0 +1,32 @@
+package in.parthi.ui;
+
+import java.util.List;
+import in.parthi.core.model.Product;
+import in.parthi.core.model.Transaction;
+
+public class AddProduct {
+    private Transaction transaction;
+    private List<Product> product;
+
+    public AddProduct(Transaction transaction, List<Product> product) {
+        this.transaction = transaction;
+        this.product = product;
+    }
+
+    public Transaction getTransaction() {
+        return this.transaction;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
+
+    public List<Product> getProduct() {
+        return this.product;
+    }
+
+    public void setProduct(List<Product> product) {
+        this.product = product;
+    }
+
+}

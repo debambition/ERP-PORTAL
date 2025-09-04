@@ -11,7 +11,7 @@ import in.parthi.core.service.ProductService;
 public class ProductInterface {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductInterface.class);
-    
+
     ProductService productService = new ProductService();
 
     /**
@@ -21,8 +21,9 @@ public class ProductInterface {
      */
     public Product getProduct() {
 
-        Product product =  null;
-        Scanner sc = new Scanner(System.in);
+        Product product = null;
+        Scanner sc = Properties.getSacnnerInstance();
+        sc.nextLine();
         logger.info("Start taking product details from user");
         System.out.print("Enter Product ID: ");
         String id = sc.nextLine();
@@ -37,7 +38,8 @@ public class ProductInterface {
      */
     public String addProduct() {
         String response = "";
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Properties.getSacnnerInstance();
+        sc.nextLine();
         logger.info("Start taking product details from user");
         Product product = new Product();
         try {
@@ -54,7 +56,7 @@ public class ProductInterface {
             }
 
             //
-            product.setStatus("AVAILABLE");
+            product.setStatus(Properties.STATUS_AVAILABLE);
 
             //
             System.out.print("Enter Product ID: ");
@@ -78,36 +80,34 @@ public class ProductInterface {
             product.setMrp(sc.nextDouble());
 
             response = productService.addProduct(product);
-            
+
         } catch (Exception e) {
             logger.error(e.getLocalizedMessage());
-            for(StackTraceElement str : e.getStackTrace()){
+            for (StackTraceElement str : e.getStackTrace()) {
                 System.out.println(str.toString());
             }
             response = e.getLocalizedMessage();
-        } 
+        }
         return response;
     }
 
 
 
-    public Product returnTovendor(){
-        Product productId = null;
-        Scanner sc3 = new  Scanner(System.in);
+    public String returnTovendor() {
+        String response = null;
+        Scanner sc = Properties.getSacnnerInstance();
+        sc.nextLine();
         logger.info("Taking product id from the user");
         System.out.print("Please enter product id: ");
-        String id = sc3.nextLine();
-        productId = productService.returnToVendor(id);
+        String id = sc.nextLine();
+        response = productService.returnToVendor(id);
 
-        return productId;
+        return response;
 
     }
 
 
 
 }
-
-
- 
 
 

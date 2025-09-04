@@ -14,16 +14,16 @@ public class Logistics {
     public static void main(String[] args) {
         Logistics logistics = new Logistics();
         ProductInterface productInterface = new ProductInterface();
-        Scanner sc1 = new Scanner(System.in);
+        TransactionInterface transactionInterface = new TransactionInterface();
+        Scanner sc = Properties.getSacnnerInstance();
         int option = 0;
         do {
-            option = logistics.getOption(sc1);
+            option = logistics.getOption();
 
             switch (option) {
                 case 1:
                     System.out.println("============Adding Product==========");
-                    String response = productInterface.addProduct();
-                    System.out.println(response);
+                    System.out.println(productInterface.addProduct());
                     break;
                 case 2:
                     System.out.println("============Get Product==========");
@@ -32,23 +32,28 @@ public class Logistics {
                     break;
                 case 3:
                     System.out.println("============Return Product==========");
-                    Product responId = productInterface.returnTovendor();
-                    System.out.println(responId.toString());
+                    
+                    System.out.println(productInterface.returnTovendor());
 
                     break;
                 case 4:
                     System.out.println("============Adding Transaction==========");
+                    System.out.println(transactionInterface.addTransaction());
                     break;
                 case 5:
                     System.out.println("============Adding Customer==========");
                     break;
+                case 6:
+                    sc.close();
+                    
+                    System.out.println("Exiting Application Gracefully");
+                    System.exit(0);
                 default:
                     break;
             }
 
-        } while (option >= 1 && option < 5);
+        } while (option >= 1 && option < 7);
 
-        sc1.close();
 
     }
 
@@ -58,7 +63,7 @@ public class Logistics {
      *
      * @return Returns the choice of the user
      */
-    private int getOption(Scanner getChoice) {
+    private int getOption() {
         System.out.println("==========MENU========");
         System.out.println("1] Add product");
         System.out.println("2] Get Product");
@@ -66,15 +71,16 @@ public class Logistics {
         System.out.println("4] Add Transaction");
         System.out.println("5] Add Customer");
         System.out.println("6] Exit the App");
-        System.out.print("Enter your option number(1 - 5): ");
+        System.out.print("Enter your option number(1 - 6): ");
         int choice = -9999;
         try {
             do {
                 if (choice != -9999) {
-                    System.out.print("Please select a valid choice between 1 - 5: ");
+                    System.out.print("Please select a valid choice between 1 - 6: ");
                 }
-                choice = getChoice.nextInt();
-            } while (choice < 1 || choice > 5);
+                Scanner sc = Properties.getSacnnerInstance();
+                choice = sc.nextInt();
+            } while (choice < 1 || choice > 6);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             logger.warn(e.getMessage());

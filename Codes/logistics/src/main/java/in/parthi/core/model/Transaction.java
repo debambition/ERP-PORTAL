@@ -11,15 +11,18 @@ package in.parthi.core.model;
 
 import java.time.LocalDate;
 import java.util.UUID;
+import in.parthi.common.PaymentMode;
+import in.parthi.common.TransactionCategory;
+import in.parthi.common.TransactionType;
 
 public class Transaction {
     private String id;
     private String invoice;
     private String particular;
-    private String txnType; // TODO Create a enum for the status with CREDIT/DEBIT
-    private String txnCategory; // TODO Create a enum TRAVEL,FOOD,SALARY,OPERATION COST,SALES,INSTALLMENT,PRODUCT COST,ACCESORIES,
-                                // ADVERTISEMENT, CAMPAIGN COST
-    private String paymentMode; // TODO Create a enum for the status with CASH, ONLINE
+    private TransactionType txnType; 
+    private TransactionCategory txnCategory; 
+                                
+    private PaymentMode paymentMode;
     private String description;
     private double amount;
     LocalDate transactionDate;
@@ -36,7 +39,7 @@ public class Transaction {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Transaction(String invoice ,String particular, String txnType, String txnCategory, String paymentMode, String description, double amount, LocalDate transactionDate) {
+    public Transaction(String invoice, String particular, TransactionType txnType, TransactionCategory txnCategory, PaymentMode paymentMode, String description, double amount, LocalDate transactionDate) {
         this.id = UUID.randomUUID().toString();
         this.invoice = invoice;
         this.particular = particular;
@@ -48,6 +51,8 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
+    
+
     public String getParticular() {
         return particular;
     }
@@ -56,21 +61,7 @@ public class Transaction {
         this.particular = particular;
     }
 
-    public String getTxnType() {
-        return txnType;
-    }
-
-    public void setTxnType(String txnType) {
-        this.txnType = txnType;
-    }
-
-    public String getTxnCategory() {
-        return txnCategory;
-    }
-
-    public void setTxnCategory(String txnCategory) {
-        this.txnCategory = txnCategory;
-    }
+    
 
     public String getDescription() {
         return description;
@@ -88,11 +79,27 @@ public class Transaction {
         this.id = id;
     }
 
-    public String getPaymentMode() {
+    public TransactionType getTxnType() {
+        return this.txnType;
+    }
+
+    public void setTxnType(TransactionType txnType) {
+        this.txnType = txnType;
+    }
+
+    public TransactionCategory getTxnCategory() {
+        return this.txnCategory;
+    }
+
+    public void setTxnCategory(TransactionCategory txnCategory) {
+        this.txnCategory = txnCategory;
+    }
+
+    public PaymentMode getPaymentMode() {
         return this.paymentMode;
     }
 
-    public void setPaymentMode(String paymentMode) {
+    public void setPaymentMode(PaymentMode paymentMode) {
         this.paymentMode = paymentMode;
     }
 

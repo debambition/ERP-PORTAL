@@ -14,6 +14,7 @@ public class Logistics {
     public static void main(String[] args) {
         Logistics logistics = new Logistics();
         ProductInterface productInterface = new ProductInterface();
+        TransactionInterface transactionInterface = new TransactionInterface();
         Scanner sc = Properties.getSacnnerInstance();
         int option = 0;
         do {
@@ -22,8 +23,7 @@ public class Logistics {
             switch (option) {
                 case 1:
                     System.out.println("============Adding Product==========");
-                    String response = productInterface.addProduct();
-                    System.out.println(response);
+                    System.out.println(productInterface.addProduct());
                     break;
                 case 2:
                     System.out.println("============Get Product==========");
@@ -38,12 +38,15 @@ public class Logistics {
                     break;
                 case 4:
                     System.out.println("============Adding Transaction==========");
+                    System.out.println(transactionInterface.addTransaction());
                     break;
                 case 5:
                     System.out.println("============Adding Customer==========");
                     break;
                 case 6:
                     sc.close();
+                    
+                    System.out.println("Exiting Application Gracefully");
                     System.exit(0);
                 default:
                     break;

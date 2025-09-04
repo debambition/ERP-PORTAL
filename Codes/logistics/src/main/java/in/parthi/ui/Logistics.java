@@ -14,7 +14,7 @@ public class Logistics {
     public static void main(String[] args) {
         Logistics logistics = new Logistics();
         ProductInterface productInterface = new ProductInterface();
-        Scanner sc1 = new Scanner(System.in);
+        Scanner sc1 = Properties.getSacnnerInstance();
         int option = 0;
         do {
             option = logistics.getOption(sc1);
@@ -32,8 +32,8 @@ public class Logistics {
                     break;
                 case 3:
                     System.out.println("============Return Product==========");
-                    Product responId = productInterface.returnTovendor();
-                    System.out.println(responId.toString());
+                    
+                    System.out.println(productInterface.returnTovendor());
 
                     break;
                 case 4:

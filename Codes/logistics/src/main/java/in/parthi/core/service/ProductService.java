@@ -39,7 +39,9 @@ public class ProductService {
             response = productRepo.addProduct(product);
         } catch (RuntimeException e) {
             response = e.getLocalizedMessage();
+
             logger.error("Exception occured while adding product: " + e.getLocalizedMessage());
+
         }
         return response;
     }

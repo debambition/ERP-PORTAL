@@ -14,6 +14,9 @@ public class ProductInterface {
     
     ProductService productService = new ProductService();
 
+
+    ProductRepo productRepo = new ProductRepo();
+
     /**
      * This method take a product id and call repo class to retrieve the corresponding product.
      * 
@@ -29,6 +32,8 @@ public class ProductInterface {
         product = productService.getProduct(id);
         return product;
     }
+
+
 
     /**
      * This method take a product details and call repo class to add the product.

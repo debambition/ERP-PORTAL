@@ -56,8 +56,12 @@ public class ProductRepo {
         }
         if (hasProduct) {
             logger.warn("Product with id: " + product.getId() + " already available in database");
+
+            throw new RuntimeException("The product with id " + product.getId() + " Already present in database, Unable to create the product");
+
             throw new RuntimeException("The product with id " + product.getId()
                     + " Already present in database, Unable to create the product");
+
         }
 
         productList.add(product);
@@ -65,6 +69,7 @@ public class ProductRepo {
         logger.info("Product with id: " + product.getId() + " added to the database");
         return response;
     }
+
 
     /**
      * This method take a product id and check with  the database.
@@ -105,53 +110,6 @@ public class ProductRepo {
 
 
     
-    //  /**
-    //  * This method take a product details and add it to the database.
-    //  * 
-    //  * @param Product that need to be added to the database
-    //  * @return Returns the choice of the user
-    //  * @throws RuntimeException if the product is already available in the database.
-    //  */
-    //  public String updateProduct(Product product) throws RuntimeException {// Create a NotFound Exception
-    //      String response = "";
-    //      boolean hasProduct = true;
-    //      for (Product tmpProduct : productList) {
-    //          if (tmpProduct.getId().equalsIgnoreCase(product.getId())) {
-    //              hasProduct = true;
-    //              break;
-    //          }
+    
 
-    //      }
-    //      if (hasProduct) {
-
-    //          logger.warn("Product with id: " + product.getId() + " already available in database");
-    //          throw new RuntimeException("The product with id " + product.getId()
-    //                  + " Already present in database, Unable to create the product");
-    //      }
-
-    //      productList.remove(product);
-    //      response = "Product added successfully";
-    //      logger.info("Product with id: " + product.getId() + " added to the database");
-    //      return response;
-    //  }
-    //   public String returnProduct(Product product) throws RuntimeException {// Create a NotFound Exception
-    //     String response = "";
-    //     boolean hasProduct = true;
-    //     for (Product tmpProduct : productList) {
-    //         if (tmpProduct.getId().equalsIgnoreCase(product.getId())) {
-    //             hasProduct = true;
-    //             break;
-    //         }
-
-    //     }
-    //     if (hasProduct) {
-    //         logger.warn("Product with id: " + product.getId() + " already available in database");
-    //         throw new RuntimeException("The product with id " + product.getId() + " Already present in database, Unable to create the product");
-    //     }
-
-    //     productList.remove(product);
-    //     response = "Product added successfully";
-    //     logger.info("Product with id: " + product.getId() + " added to the database");
-    //     return response;
-    // }
 }

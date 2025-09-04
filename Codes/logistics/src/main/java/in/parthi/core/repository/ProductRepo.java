@@ -56,7 +56,12 @@ public class ProductRepo {
         }
         if (hasProduct) {
             logger.warn("Product with id: " + product.getId() + " already available in database");
+
             throw new RuntimeException("The product with id " + product.getId() + " Already present in database, Unable to create the product");
+
+            throw new RuntimeException("The product with id " + product.getId()
+                    + " Already present in database, Unable to create the product");
+
         }
 
         productList.add(product);
@@ -64,4 +69,5 @@ public class ProductRepo {
         logger.info("Product with id: " + product.getId() + " added to the database");
         return response;
     }
+
 }

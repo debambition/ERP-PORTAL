@@ -29,12 +29,20 @@ public class TransactionRepo {
         logger.info("Fetching all transactions");
         return transactionList;
     }
+
+     /**
+     * This method take a an transaction id and retrieve the transaction from the database.
+     * 
+     * @param String id with which the transaction needs to be found
+     * @return Returns the transaction
+     * @throws RuntimeException if the transaction is unavailable in the database.
+     */
     
-     public Transaction getProduct(String id) throws RuntimeException {// Create a NotFound Exception
+     public Transaction getTransaction(String id) throws RuntimeException {// Create a NotFound Exception
         Transaction transaction = null;
-        for (Transaction tmpProduct : transactionList) {
-            if (tmpProduct.getId().equalsIgnoreCase(id)) {
-                transaction = tmpProduct;
+        for (Transaction tmpTransaction : transactionList) {
+            if (tmpTransaction.getId().equalsIgnoreCase(id)) {
+                transaction = tmpTransaction;
                 logger.info("transaction with id: " + id + " found in database");
             }
 

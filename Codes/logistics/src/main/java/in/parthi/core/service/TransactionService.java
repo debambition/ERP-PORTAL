@@ -25,4 +25,26 @@ public class TransactionService {
         }
         return response;
     }
+
+    /**
+     * This method take a a transaction id and retrieve the transaction from the database.
+     * 
+     * @param String id with which the transaction needs to be found
+     * @return Returns a transaction
+     * @throws RuntimeException if the transaction is unavailable in the database.
+     */
+
+     public Transaction getTransaction(String id)
+     {
+        Transaction response = null;
+        try{
+            response = transactionRepo.getTransaction(id);
+        } catch (RuntimeException e) {
+            logger.error("Exception occured while retriving the  transaction: " + e.getLocalizedMessage());
+
+        }
+        return response;
+     }
+
+
 }

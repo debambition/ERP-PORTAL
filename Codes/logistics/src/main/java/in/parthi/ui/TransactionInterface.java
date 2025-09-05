@@ -16,6 +16,28 @@ public class TransactionInterface {
     private static final Logger logger = LoggerFactory.getLogger(TransactionInterface.class);
     TransactionService transactionService = new TransactionService();
 
+  /**
+     * This method take the transaction id and call service class to retrieve the corresponding transaction.
+     * 
+     * @return Returns a transaction matching with transaction ID
+     */
+
+    public Transaction gettransaction()
+    {
+        Transaction transaction = null;
+        Scanner sc = Properties.getSacnnerInstance();
+        sc.nextLine();
+        logger.info("Transaction id is entered which needs to be retrive");
+        System.out.println("Please enter the ID: ");
+        String id = sc.nextLine();
+        transaction = transactionService.getTransaction(id);
+        return transaction;
+
+    }
+
+
+
+
     /**
      * This method take a transaction details and call repo class to add the transaction.
      * 

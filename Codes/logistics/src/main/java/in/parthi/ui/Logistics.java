@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import in.parthi.common.Properties;
 import in.parthi.core.model.Product;
+import in.parthi.core.model.Transaction;
 
 public class Logistics {
 
@@ -40,10 +41,16 @@ public class Logistics {
                     System.out.println("============Adding Transaction==========");
                     System.out.println(transactionInterface.addTransaction());
                     break;
+
                 case 5:
-                    System.out.println("============Adding Customer==========");
+                    System.out.println("============Get Transaction==========");
+                    Transaction transaction = transactionInterface.gettransaction();
+                    System.out.println(transaction.toString());
                     break;
                 case 6:
+                    System.out.println("============Adding Customer==========");
+                    break;
+                case 7:
                     sc.close();
                     
                     System.out.println("Exiting Application Gracefully");
@@ -52,7 +59,7 @@ public class Logistics {
                     break;
             }
 
-        } while (option >= 1 && option < 7);
+        } while (option >= 1 && option < 8);
 
 
     }
@@ -69,18 +76,19 @@ public class Logistics {
         System.out.println("2] Get Product");
         System.out.println("3] Return product");
         System.out.println("4] Add Transaction");
-        System.out.println("5] Add Customer");
-        System.out.println("6] Exit the App");
+        System.out.println("5] Get Transaction");
+        System.out.println("6] Add Customer");
+        System.out.println("7] Exit the App");
         System.out.print("Enter your option number(1 - 6): ");
         int choice = -9999;
         try {
             do {
                 if (choice != -9999) {
-                    System.out.print("Please select a valid choice between 1 - 6: ");
+                    System.out.print("Please select a valid choice between 1 - 7: ");
                 }
                 Scanner sc = Properties.getSacnnerInstance();
                 choice = sc.nextInt();
-            } while (choice < 1 || choice > 6);
+            } while (choice < 1 || choice > 7);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             logger.warn(e.getMessage());

@@ -47,39 +47,13 @@ public class TransactionInterface {
             System.out.print("Enter Particular (if any): ");
             transaction.setParticular(sc.nextLine());
 
-            //
-            do {
-                System.out.print("Enter Transaction Type \n 1] Credit\n2]Debit ");
-                option = sc.nextInt();
-                switch (option) {
-                    case 1:
-                        transaction.setTxnType(TransactionType.CREDIT);
-                        break;
-                    case 2:
-                        transaction.setTxnType(TransactionType.DEBIT);
-                        break;
-                    default:
-                        System.out.println("Please enter a valid input");
-                        break;
-                }
-            } while (option <= 0 || option > 2);
+            //Setting the transaction type when user select the correct option between 1-2
+            //Usend enum class for transaction type
+            TransactionType.choose(transaction);
 
-            //
-            do {
-                System.out.print("Enter Payment Mode\n 1] Cash\n2]Online ");
-                option = sc.nextInt();
-                switch (option) {
-                    case 1:
-                        transaction.setPaymentMode(PaymentMode.CASH);
-                        break;
-                    case 2:
-                        transaction.setPaymentMode(PaymentMode.ONLINE);
-                        break;
-                    default:
-                        System.out.println("Please enter a valid input");
-                        break;
-                }
-            } while (option <= 0 || option > 2);
+            //Setting the Payment mode when the user select the option (1- cash, 2-online)
+            //Usend Enum for the payment mode.
+            PaymentMode.choose(transaction);
 
             //
             do {

@@ -57,6 +57,7 @@ public class TransactionInterface {
                         break;
                     case 2:
                         transaction.setTxnType(TransactionType.DEBIT);
+                        break;
                     default:
                         System.out.println("Please enter a valid input");
                         break;
@@ -73,6 +74,7 @@ public class TransactionInterface {
                         break;
                     case 2:
                         transaction.setPaymentMode(PaymentMode.ONLINE);
+                        break;
                     default:
                         System.out.println("Please enter a valid input");
                         break;

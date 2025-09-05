@@ -119,4 +119,9 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
+    public String toString(){
+        return "ID: "+this.getId() + "\n" +"Invoice Id:" + this.getInvoice() +  "\n" + "Perticular: " + this.getParticular() + "\n" + "Transaction type: " + "\n" + this.getTxnType()
+         + "\n" + "Payment mode: " +"\n" + this.getPaymentMode() + "\n" + "Amount paid: " + "\n" + this.getAmount() + "\n" + "Transaction date: " + "\n" +this.getTransactionDate();
+    }
+
 }

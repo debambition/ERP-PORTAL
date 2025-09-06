@@ -5,30 +5,29 @@ import java.util.Scanner;
 import in.parthi.core.model.Transaction;
 
 public enum TransactionType {
-    CREDIT,DEBIT;
+    CREDIT, DEBIT;
 
-    public static void choose(Transaction transaction)
-    {
+    // Static method for user input
+    public static void choose(Transaction transaction) {
         Scanner sc = Properties.getSacnnerInstance();
         int option;
-        do{System.out.println("Enter the Transaction type \n 1)Credit \n 2)Debit\n ");
-        option = sc.nextInt();
-        switch(option)
-        {
-            case 1:
-            transaction.setTxnType(CREDIT);
-            break;
+        int i;
+        do {
+            i = 1;
+            for (TransactionType tmp : TransactionType.values()) {
+                System.out.println((i++) + "]\t" + tmp);
 
-            case 2:
-            transaction.setTxnType(DEBIT);
-            break;
+            }
+            System.out.print("Choose your Option: ");
+            option = sc.nextInt();
 
-            default:
-            System.out.println("Please enter a valid option between 1-2");
+            if (option >= 1 && option <= TransactionType.values().length) {
+                transaction.setTxnType(TransactionType.values()[option - 1]);
+            } else {
+                System.out.println("Please enter a valis option between 1-" + TransactionType.values().length);
 
+            }
 
-        }
-        } while (option <= 0 || option >2);
-        
+        } while (option < 1 || option > TransactionType.values().length);
     }
 }

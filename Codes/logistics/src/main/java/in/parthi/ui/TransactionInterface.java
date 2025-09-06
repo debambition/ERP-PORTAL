@@ -16,14 +16,14 @@ public class TransactionInterface {
     private static final Logger logger = LoggerFactory.getLogger(TransactionInterface.class);
     TransactionService transactionService = new TransactionService();
 
-  /**
-     * This method take the transaction id and call service class to retrieve the corresponding transaction.
+    /**
+     * This method take the transaction id and call service class to retrieve the corresponding
+     * transaction.
      * 
      * @return Returns a transaction matching with transaction ID
      */
 
-    public Transaction gettransaction()
-    {
+    public Transaction gettransaction() {
         Transaction transaction = null;
         Scanner sc = Properties.getSacnnerInstance();
         sc.nextLine();
@@ -37,7 +37,6 @@ public class TransactionInterface {
 
 
 
-
     /**
      * This method take a transaction details and call repo class to add the transaction.
      * 
@@ -48,7 +47,6 @@ public class TransactionInterface {
         logger.info("Start taking transaction details from user");
         Scanner sc = Properties.getSacnnerInstance();
         sc.nextLine();
-        int option = 0;
         Transaction transaction = new Transaction();
         try {
             // Take transaction details from user
@@ -69,32 +67,23 @@ public class TransactionInterface {
             System.out.print("Enter Particular (if any): ");
             transaction.setParticular(sc.nextLine());
 
-            //Setting the transaction type when user select the correct option between 1-2
-            //Usend enum class for transaction type
+            // Setting the transaction type when user select the correct option between 1-2
+            // Usend enum class for transaction type
+            System.out.println("Enter Transaction Type: ");
             TransactionType.choose(transaction);
 
-            //Setting the Payment mode when the user select the option (1- cash, 2-online)
-            //Usend Enum for the payment mode.
+            // Setting the Payment mode when the user select the options
+            // Usend Enum for the payment mode.
+            System.out.println("Enter Payment Mode: ");
             PaymentMode.choose(transaction);
 
-            //
-            do {
-                System.out.print("Enter Payment Mode\n 1] TRAVEL\n2]FOOD ");
-                option = sc.nextInt();
-                switch (option) {
-                    case 1:
-                        transaction.setTxnCategory(TransactionCategory.TRAVEL);
-                        break;
-                    case 2:
-                        transaction.setTxnCategory(TransactionCategory.FOOD);
-                        break;
-                    default:
-                        System.out.println("Please enter a valid input");
-                        break;
-                }
-            } while (option <= 0 || option > 2);
+            // Setting the Transaction category when the user select the options
+            // Usend Enum for the payment mode.
+            System.out.println("Enter Transaction Category: ");
+            TransactionCategory.choose(transaction);
 
-            //flushing the extra enter
+
+            // flushing the extra enter
             sc.nextLine();
             //
             System.out.print("Enter Description: ");
@@ -108,7 +97,7 @@ public class TransactionInterface {
         } catch (RuntimeException e) {
             response = e.getLocalizedMessage();
             logger.error("Exception occured while adding transaction: " + e.getLocalizedMessage());
-        } 
+        }
         return response;
     }
 }

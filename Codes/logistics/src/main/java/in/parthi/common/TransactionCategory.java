@@ -1,7 +1,7 @@
 package in.parthi.common;
 
 import java.util.Scanner;
-import in.parthi.core.model.Transaction;
+import in.parthi.core.model.transaction.Transaction;
 
 public enum TransactionCategory {
     TRAVEL, FOOD, SALARY, OPERATION_COST, SALES, INSTALLMENT, PRODUCT__COST, ACCESORIES, ADVERTISEMENT, CAMPAIGN_COST;

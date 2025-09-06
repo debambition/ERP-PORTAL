@@ -1,8 +1,7 @@
 package in.parthi.common;
 
 import java.util.Scanner;
-
-import in.parthi.core.model.Transaction;
+import in.parthi.core.model.transaction.Transaction;
 
 public enum TransactionType {
     CREDIT, DEBIT;

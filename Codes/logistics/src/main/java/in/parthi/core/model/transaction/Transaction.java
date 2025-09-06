@@ -7,7 +7,7 @@
  * @since 2025-08-30
  */
 
-package in.parthi.core.model;
+package in.parthi.core.model.transaction;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -21,7 +21,6 @@ public class Transaction {
     private String particular;
     private TransactionType txnType; 
     private TransactionCategory txnCategory; 
-                                
     private PaymentMode paymentMode;
     private String description;
     private double amount;

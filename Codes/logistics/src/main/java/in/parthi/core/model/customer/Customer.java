@@ -9,7 +9,7 @@
 
 
 
-package in.parthi.core.model;
+package in.parthi.core.model.customer;
 
 import java.time.LocalDate;
 

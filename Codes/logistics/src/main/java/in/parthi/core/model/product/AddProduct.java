@@ -1,12 +1,14 @@
-package in.parthi.ui;
+package in.parthi.core.model.product;
 
 import java.util.List;
-import in.parthi.core.model.Product;
-import in.parthi.core.model.Transaction;
+import in.parthi.core.model.transaction.Transaction;
 
 public class AddProduct {
     private Transaction transaction;
     private List<Product> product;
+
+    public AddProduct() {
+    }
 
     public AddProduct(Transaction transaction, List<Product> product) {
         this.transaction = transaction;

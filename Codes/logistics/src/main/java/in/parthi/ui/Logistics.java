@@ -4,8 +4,8 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import in.parthi.common.Properties;
-import in.parthi.core.model.Product;
-import in.parthi.core.model.Transaction;
+import in.parthi.core.model.product.Product;
+import in.parthi.core.model.transaction.Transaction;
 
 public class Logistics {
 
@@ -23,8 +23,8 @@ public class Logistics {
 
             switch (option) {
                 case 1:
-                    System.out.println("============Adding Product==========");
-                    System.out.println(productInterface.addProduct());
+                    System.out.println("============Adding Products==========");
+                    System.out.println(productInterface.addProducts());
                     break;
                 case 2:
                     System.out.println("============Get Product==========");

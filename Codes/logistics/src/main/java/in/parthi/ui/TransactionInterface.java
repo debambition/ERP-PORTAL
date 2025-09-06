@@ -9,7 +9,7 @@ import in.parthi.common.PaymentMode;
 import in.parthi.common.Properties;
 import in.parthi.common.TransactionCategory;
 import in.parthi.common.TransactionType;
-import in.parthi.core.model.Transaction;
+import in.parthi.core.model.transaction.Transaction;
 import in.parthi.core.service.TransactionService;
 
 public class TransactionInterface {
@@ -38,6 +38,68 @@ public class TransactionInterface {
 
 
     /**
+     * This method take a transaction details and call repo class to add the transaction.
+     * 
+     * @return Returns a responce message for the addition action of transaction
+     */
+    public void addTransaction(Transaction transaction) {
+        String response = "";
+        logger.info("Start taking transaction details from user");
+        Scanner sc = Properties.getSacnnerInstance();
+        sc.nextLine();
+        try {
+            // Take transaction details from user
+            LocalDate today = LocalDate.now();
+            System.out.print("Enter Stockin Date e.g 2025-09-23 (default: " + today.toString() + "): ");
+            String strDate = sc.nextLine();
+            if (strDate.length() == 0) {
+                transaction.setTransactionDate(today);
+            } else {
+                transaction.setTransactionDate(LocalDate.parse(strDate));
+            }
+
+            //
+            System.out.print("Enter Invoice Id(if any): ");
+            transaction.setInvoice(sc.nextLine());
+
+            //
+            System.out.print("Enter Particular (if any): ");
+            transaction.setParticular(sc.nextLine());
+
+            // Setting the transaction type when user select the correct option between 1-2
+            // Usend enum class for transaction type
+            System.out.println("Enter Transaction Type: ");
+            TransactionType.choose(transaction);
+
+            // Setting the Payment mode when the user select the options
+            // Usend Enum for the payment mode.
+            System.out.println("Enter Payment Mode: ");
+            PaymentMode.choose(transaction);
+
+            // Setting the Transaction category when the user select the options
+            // Usend Enum for the payment mode.
+            System.out.println("Enter Transaction Category: ");
+            TransactionCategory.choose(transaction);
+
+
+            // flushing the extra enter
+            sc.nextLine();
+            //
+            System.out.print("Enter Description: ");
+            transaction.setDescription(sc.nextLine());
+
+            //
+            System.out.print("Enter Amount: ");
+            transaction.setAmount(sc.nextDouble());
+
+            response = transactionService.addTransaction(transaction);
+        } catch (RuntimeException e) {
+            response = e.getLocalizedMessage();
+            logger.error("Exception occured while adding transaction: " + e.getLocalizedMessage());
+        }
+    }
+
+        /**
      * This method take a transaction details and call repo class to add the transaction.
      * 
      * @return Returns a responce message for the addition action of transaction

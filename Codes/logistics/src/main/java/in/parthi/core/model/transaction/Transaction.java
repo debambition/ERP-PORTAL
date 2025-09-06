@@ -7,7 +7,7 @@
  * @since 2025-08-30
  */
 
-package in.parthi.core.model;
+package in.parthi.core.model.transaction;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -21,7 +21,6 @@ public class Transaction {
     private String particular;
     private TransactionType txnType; 
     private TransactionCategory txnCategory; 
-                                
     private PaymentMode paymentMode;
     private String description;
     private double amount;
@@ -120,8 +119,8 @@ public class Transaction {
     }
 
     public String toString(){
-        return "ID: "+this.getId() + "\n" +"Invoice Id:" + this.getInvoice() +  "\n" + "Perticular: " + this.getParticular() + "\n" + "Transaction type: " + "\n" + this.getTxnType()
-         + "\n" + "Payment mode: " +"\n" + this.getPaymentMode() + "\n" + "Amount paid: " + "\n" + this.getAmount() + "\n" + "Transaction date: " + "\n" +this.getTransactionDate();
+        return "Transaction date: " +this.getTransactionDate()+"\n"+ "Transaction Category: " +this.getTxnCategory()+"\n"+"ID: "+this.getId() + "\n" +"Invoice Id:" + this.getInvoice() +  "\n" + "Perticular: " + this.getParticular() + "\n" + "Transaction type: " + this.getTxnType()
+         + "\n" + "Payment mode: " +this.getPaymentMode() + "\n" + "Amount paid: " + this.getAmount() + "\n";
     }
 
 }

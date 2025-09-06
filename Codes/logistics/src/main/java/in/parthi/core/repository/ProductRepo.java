@@ -6,7 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import in.parthi.common.Properties;
-import in.parthi.core.model.Product;
+import in.parthi.core.model.product.Product;
 
 public class ProductRepo {
 

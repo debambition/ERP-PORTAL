@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import in.parthi.core.model.Transaction;
+import in.parthi.core.model.transaction.Transaction;
 
 public class TransactionRepo {
     private static final Logger logger = LoggerFactory.getLogger(TransactionRepo.class);

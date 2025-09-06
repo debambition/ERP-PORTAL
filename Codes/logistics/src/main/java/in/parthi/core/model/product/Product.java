@@ -6,7 +6,7 @@
  * @since 2025-08-30
  */
 
-package in.parthi.core.model;
+package in.parthi.core.model.product;
 
 import java.time.LocalDate;
 

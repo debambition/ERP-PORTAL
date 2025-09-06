@@ -2,7 +2,7 @@ package in.parthi.core.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import in.parthi.core.model.Transaction;
+import in.parthi.core.model.transaction.Transaction;
 import in.parthi.core.repository.TransactionRepo;
 
 public class TransactionService {

@@ -1,34 +1,34 @@
 package in.parthi.common;
-import java.util.Scanner;
 
-import in.parthi.core.model.Transaction;
+import java.util.Scanner;
+import in.parthi.core.model.transaction.Transaction;
 
 public enum PaymentMode {
-    CASH,
-    ONLINE;
+    CASH, ONLINE;
 
 
-    
+
     // Static method for user input
     public static void choose(Transaction transaction) {
         Scanner sc = Properties.getSacnnerInstance();
         int option;
-        do{System.out.print("Enter the Payment Mode \n 1)Cash \n 2)Online\n ");
-        option = sc.nextInt();
-        switch(option) 
-        {
-            case 1:
-            transaction.setPaymentMode(CASH);
-            break;
+        int i;
+        do {
+            i = 1;
+            for (PaymentMode tmp : PaymentMode.values()) {
+                System.out.println((i++) + "]\t" + tmp);
 
-            case 2:
-            transaction.setPaymentMode(ONLINE);
-            break;
+            }
+            System.out.print("Choose your Option: ");
+            option = sc.nextInt();
 
-            default:
-            System.out.println("Please enter a valis option between 1-2");
-        }
+            if (option >= 1 && option <= PaymentMode.values().length) {
+                transaction.setPaymentMode(PaymentMode.values()[option - 1]);
+            } else {
+                System.out.println("Please enter a valis option between 1-" + PaymentMode.values().length);
 
-        } while (option <=0 || option >2);
+            }
+
+        } while (option < 1 || option > PaymentMode.values().length);
     }
 }

@@ -19,7 +19,6 @@ public class Customer {
     private String name;
     private int phoneNumber;
     private String address;
-    String status;  // TODO Create a enum for the status with PENDING, COMPLETED, FAILED
     
     LocalDate dateOfBirth;
 
@@ -29,12 +28,11 @@ public class Customer {
     }
 
 
-    public Customer(String id, String name, int phoneNumber, String address, String status, LocalDate dateOfBirth) {
+    public Customer(String id, String name, int phoneNumber, String address, LocalDate dateOfBirth) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.status = status;
+        this.address = address;        
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -70,14 +68,7 @@ public class Customer {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    public String getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+      
 
     public LocalDate getDateOfBirth() {
         return this.dateOfBirth;
@@ -85,10 +76,9 @@ public class Customer {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-    
+    }    
 
-    }
+}
 
 
 

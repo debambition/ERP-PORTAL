@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import in.parthi.core.model.product.AddProduct;
 import in.parthi.core.model.product.Product;
+import in.parthi.core.model.product.ReturnToVendor;
 import in.parthi.core.repository.ProductRepo;
 
 public class ProductService {
@@ -73,7 +74,7 @@ public class ProductService {
      /**
      * This method take a product details and  remove product from the database.
      * 
-     * @param Product that need to be delete to the database
+     * @param id that need to be delete to the database
      * @return Returns the responce
      */
     public String returnToVendor(String id){
@@ -91,5 +92,28 @@ public class ProductService {
         return response;
         
 
+    }
+     /**
+     * This method take a product details and  change status of the product to the database.
+     * 
+     * @param id that need to be delete to the database
+     * @return Returns the responce
+     */
+
+    public String retunToVendorProducts(ReturnToVendor returnToVendor, String id)
+    {
+               String response = "";
+        try {
+            response = transactionService.addTransaction(returnToVendor.getTransaction());
+            if (response.contains("added successfully")){
+               response = productRepo.returnToVendor(id);
+                
+            }
+            
+        } catch (RuntimeException e) {
+            response = e.getLocalizedMessage();
+            logger.error("Exception occured while adding product: " + e.getLocalizedMessage());
+        }
+        return response;
     }
 }

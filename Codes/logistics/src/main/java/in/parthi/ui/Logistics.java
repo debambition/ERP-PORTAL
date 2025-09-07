@@ -42,20 +42,27 @@ public class Logistics {
                     System.out.println(productInterface.returnTovendor());
 
                     break;
+
                 case 5:
+                    System.out.println("============Return Products(Vendor)==========");
+                    
+                    System.out.println(productInterface.returnToVendorProducts());
+
+                    break;
+                case 6:
                     System.out.println("============Adding Transaction==========");
                     System.out.println(transactionInterface.addTransaction());
                     break;
 
-                case 6:
+                case 7:
                     System.out.println("============Get Transaction==========");
                     Transaction transaction = transactionInterface.gettransaction();
                     System.out.println(transaction.toString());
                     break;
-                case 7:
+                case 8:
                     System.out.println("============Adding Customer==========");
                     break;
-                case 8:
+                case 9:
                     sc.close();
                     
                     System.out.println("Exiting Application Gracefully");
@@ -64,7 +71,7 @@ public class Logistics {
                     break;
             }
 
-        } while (option >= 1 && option < 8);
+        } while (option >= 1 && option < 9);
 
 
     }
@@ -81,20 +88,21 @@ public class Logistics {
         System.out.println("2] Add products(Vendor)");
         System.out.println("3] Get Product"); 
         System.out.println("4] Return product");
-        System.out.println("5] Add Transaction");
-        System.out.println("6] Get Transaction");
-        System.out.println("7] Add Customer");
-        System.out.println("8] Exit the App");
-        System.out.print("Enter your option number(1 - 8): ");
+        System.out.println("5] Return products(Vendor)");
+        System.out.println("6] Add Transaction");
+        System.out.println("7] Get Transaction");
+        System.out.println("8] Add Customer");
+        System.out.println("9] Exit the App");
+        System.out.print("Enter your option number(1 - 9): ");
         int choice = -9999;
         try {
             do {
                 if (choice != -9999) {
-                    System.out.print("Please select a valid choice between 1 - 8: ");
+                    System.out.print("Please select a valid choice between 1 - 9: ");
                 }
                 Scanner sc = Properties.getSacnnerInstance();
                 choice = sc.nextInt();
-            } while (choice < 1 || choice > 8);
+            } while (choice < 1 || choice > 9);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             logger.warn(e.getMessage());

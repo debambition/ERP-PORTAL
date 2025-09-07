@@ -9,8 +9,11 @@ import org.slf4j.LoggerFactory;
 import in.parthi.common.Properties;
 import in.parthi.core.model.product.AddProduct;
 import in.parthi.core.model.product.Product;
+import in.parthi.core.model.product.ReturnToVendor;
 import in.parthi.core.model.transaction.Transaction;
 import in.parthi.core.service.ProductService;
+import in.parthi.core.service.TransactionService;
+
 
 public class ProductInterface {
 
@@ -18,6 +21,7 @@ public class ProductInterface {
 
     ProductService productService = new ProductService();
     TransactionInterface transactionInterface = new TransactionInterface();
+    TransactionService transactionService = new TransactionService();
 
     /**
      * This method take a product id and call repo class to retrieve the corresponding product.
@@ -80,7 +84,6 @@ public class ProductInterface {
 
     /**
      * This method take a product details and to add the product list.
-     * 
      * @return Returns a responce message for the addition action of product
      */
     public String addProduct(List<Product> productList) {
@@ -210,6 +213,36 @@ public class ProductInterface {
 
         return response;
 
+    }
+
+    public String returnToVendorProducts(){
+        String response = "";
+         Scanner sc = Properties.getSacnnerInstance();
+         // Calling addproduct from Product model
+        System.out.println("Enter the transaction id");
+        String id = sc.nextLine();
+        transactionInterface.gettransaction();
+        //for (Transaction tmpTransaction : transactionList) 
+        
+
+        try {
+            
+            System.out.println("Enter the product id");
+            String productId = sc.nextLine();
+            productService.getProduct(productId);
+            response = productService.returnToVendor(id);
+
+
+        } catch (Exception e) {
+            logger.error(e.getLocalizedMessage());
+            for (StackTraceElement str : e.getStackTrace()) {
+                System.out.println(str.toString());
+            }
+            response = e.getLocalizedMessage();
+        }
+
+
+        return response;
     }
 
 

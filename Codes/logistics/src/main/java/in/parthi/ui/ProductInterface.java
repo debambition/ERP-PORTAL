@@ -49,9 +49,10 @@ public class ProductInterface {
         String response = "";
         String hasMoreProduct = "N";
         List<Product> productList = new ArrayList<>();
-        AddProduct addProduct = new AddProduct();
+        // Calling addproduct from Product model
+        AddProduct addProduct = new AddProduct(); 
 
-        // Call the add transactions
+        // Call the add transactions from transaction model 
         Transaction transaction = new Transaction();
         transactionInterface.addTransaction(transaction);
         addProduct.setTransaction(transaction);

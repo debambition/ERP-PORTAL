@@ -25,7 +25,7 @@ public enum PaymentMode {
             if (option >= 1 && option <= PaymentMode.values().length) {
                 transaction.setPaymentMode(PaymentMode.values()[option - 1]);
             } else {
-                System.out.println("Please enter a valis option between 1-" + PaymentMode.values().length);
+                System.out.println("Please enter a valid option between 1-" + PaymentMode.values().length);
 
             }
 

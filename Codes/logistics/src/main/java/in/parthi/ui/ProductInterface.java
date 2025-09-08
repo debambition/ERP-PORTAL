@@ -215,35 +215,40 @@ public class ProductInterface {
 
     }
 
-    public String returnToVendorProducts(){
-        String response = "";
-         Scanner sc = Properties.getSacnnerInstance();
-         // Calling addproduct from Product model
-        System.out.println("Enter the transaction id");
-        String id = sc.nextLine();
-        transactionInterface.gettransaction();
-        //for (Transaction tmpTransaction : transactionList) 
-        
+    public String returnToVendorProducts() {
+    String response = "";
+    Scanner sc = Properties.getScannerInstance(); // fixed typo
 
-        try {
-            
-            System.out.println("Enter the product id");
-            String productId = sc.nextLine();
-            productService.getProduct(productId);
-            response = productService.returnToVendor(id);
-
-
-        } catch (Exception e) {
-            logger.error(e.getLocalizedMessage());
-            for (StackTraceElement str : e.getStackTrace()) {
-                System.out.println(str.toString());
-            }
-            response = e.getLocalizedMessage();
+    try {
+        System.out.println("Enter the transaction ID:");
+        String transactionId = sc.nextLine();
+        Transaction transaction = transactionInterface.getTransaction(transactionId);
+        if (transaction == null) {
+            return "Transaction not found.";
         }
 
+        System.out.println("Enter the product ID:");
+        String productId = sc.nextLine();
+        Product product = productService.getProduct(productId);
+        if (product == null) {
+            return "Product not found.";
+        }
 
-        return response;
+        // Create and populate ReturnToVendor object
+        ReturnToVendor returnToVendor = new ReturnToVendor();
+        returnToVendor.setTransaction(transaction);
+        returnToVendor.setProduct(product); // if applicable
+
+        // Call the correct method
+        response = productService.retunToVendorProducts(returnToVendor, productId);
+        System.out.println("Product returned successfully.");
+    } catch (Exception e) {
+        logger.error("Error during return process", e);
+        response = "Error: " + e.getLocalizedMessage();
     }
+
+    return response;
+}
 
 
 

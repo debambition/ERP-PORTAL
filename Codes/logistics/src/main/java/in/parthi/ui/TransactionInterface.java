@@ -43,7 +43,7 @@ public class TransactionInterface {
      * @return Returns a responce message for the addition action of transaction
      */
     public void addTransaction(Transaction transaction) {
-        String response = null;
+        //String response = null;
         logger.info("Start taking transaction details from user");
         Scanner sc = Properties.getSacnnerInstance();
         sc.nextLine();
@@ -92,9 +92,11 @@ public class TransactionInterface {
             System.out.print("Enter Amount: ");
             transaction.setAmount(sc.nextDouble());
 
-            response = transactionService.addTransaction(transaction);
+           // response = transactionService.addTransaction(transaction);
+           transactionService.addTransaction(transaction);
         } catch (RuntimeException e) {
-            response = e.getLocalizedMessage();
+            //response = e.getLocalizedMessage();
+            e.getLocalizedMessage();
             logger.error("Exception occured while adding transaction: " + e.getLocalizedMessage());
         }
     }

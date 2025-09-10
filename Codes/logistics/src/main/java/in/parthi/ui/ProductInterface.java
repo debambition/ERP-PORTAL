@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import in.parthi.common.Properties;
 import in.parthi.core.model.product.AddProduct;
 import in.parthi.core.model.product.Product;
-import in.parthi.core.model.product.ReturnToVendor;
 import in.parthi.core.model.transaction.Transaction;
 import in.parthi.core.service.ProductService;
 import in.parthi.core.service.TransactionService;
@@ -205,6 +204,8 @@ public class ProductInterface {
     public String returnTovendor() {
         String response = null;
         Scanner sc = Properties.getSacnnerInstance();
+        //Adding transaction details before updateing the product status
+        transactionInterface.addTransaction();
         sc.nextLine();
         logger.info("Taking product id from the user");
         System.out.print("Please enter product id: ");
@@ -214,41 +215,6 @@ public class ProductInterface {
         return response;
 
     }
-
-    public String returnToVendorProducts() {
-    String response = "";
-    Scanner sc = Properties.getScannerInstance(); // fixed typo
-
-    try {
-        System.out.println("Enter the transaction ID:");
-        String transactionId = sc.nextLine();
-        Transaction transaction = transactionInterface.getTransaction(transactionId);
-        if (transaction == null) {
-            return "Transaction not found.";
-        }
-
-        System.out.println("Enter the product ID:");
-        String productId = sc.nextLine();
-        Product product = productService.getProduct(productId);
-        if (product == null) {
-            return "Product not found.";
-        }
-
-        // Create and populate ReturnToVendor object
-        ReturnToVendor returnToVendor = new ReturnToVendor();
-        returnToVendor.setTransaction(transaction);
-        returnToVendor.setProduct(product); // if applicable
-
-        // Call the correct method
-        response = productService.retunToVendorProducts(returnToVendor, productId);
-        System.out.println("Product returned successfully.");
-    } catch (Exception e) {
-        logger.error("Error during return process", e);
-        response = "Error: " + e.getLocalizedMessage();
-    }
-
-    return response;
-}
 
 
 

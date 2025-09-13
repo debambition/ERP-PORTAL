@@ -7,6 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import in.parthi.common.Properties;
 import in.parthi.core.model.product.Product;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class ProductRepo {
 
@@ -47,6 +50,11 @@ public class ProductRepo {
      * @throws RuntimeException if the product is already available in the database.
      */
     public String addProduct(Product product) throws RuntimeException {// Create a NotFound Exception
+        //
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Logistic");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
         String response = "";
         boolean hasProduct = false;
         for (Product tmpProduct : productList) {
@@ -65,9 +73,13 @@ public class ProductRepo {
 
         }
 
-        productList.add(product);
-        response = "Product added successfully";
+        //add product and save to db
+        entityManager.persist(product);
+        entityManager.getTransaction().commit();
+         response = "Product added successfully";
         logger.info("Product with id: " + product.getId() + " added to the database");
+        entityManager.close();
+        entityManagerFactory.close();
         return response;
     }
 

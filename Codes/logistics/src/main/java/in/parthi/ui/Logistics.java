@@ -6,13 +6,17 @@ import org.slf4j.LoggerFactory;
 import in.parthi.common.Properties;
 import in.parthi.core.model.product.Product;
 import in.parthi.core.model.transaction.Transaction;
-
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 public class Logistics {
 
     private static final Logger logger = LoggerFactory.getLogger(Logistics.class);
 
 
     public static void main(String[] args) {
+     
+
         Logistics logistics = new Logistics();
         ProductInterface productInterface = new ProductInterface();
         TransactionInterface transactionInterface = new TransactionInterface();
@@ -24,6 +28,7 @@ public class Logistics {
             switch (option) {
                 case 1:
                     System.out.println("============Adding Product==========");
+
                     System.out.println(productInterface.addProduct());
                     break;
                 case 2:
@@ -54,7 +59,9 @@ public class Logistics {
                     System.out.println(transaction.toString());
                     break;
                 case 7:
-                    System.out.println("============Adding Customer==========");
+                    System.out.println("============Adding Voucher==========");
+                    //System.out.println(VoucherInterface.addVoucher());
+                    
                     break;
                 case 8:
                     sc.close();
@@ -84,7 +91,7 @@ public class Logistics {
         System.out.println("4] Return product");
         System.out.println("5] Add Transaction");
         System.out.println("6] Get Transaction");
-        System.out.println("7] Add Customer");
+        System.out.println("7] Add Voucher");
         System.out.println("8] Exit the App");
         System.out.print("Enter your option number(1 - 8): ");
         int choice = -9999;

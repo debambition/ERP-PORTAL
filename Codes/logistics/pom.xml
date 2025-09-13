@@ -24,6 +24,34 @@
             <artifactId>logback-classic</artifactId>
             <version>1.5.6</version>
         </dependency>
+          <!-- JPA API -->
+    <dependency>
+        <groupId>jakarta.persistence</groupId>
+        <artifactId>jakarta.persistence-api</artifactId>
+        <version>3.1.0</version>
+        <scope>provided</scope>
+    </dependency>
+
+    <!-- Hibernate Core (JPA Implementation) -->
+    <dependency>
+        <groupId>org.hibernate.orm</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>6.5.2.Final</version>
+    </dependency>
+
+    <!-- SQL Server JDBC Driver -->
+    <dependency>
+        <groupId>com.microsoft.sqlserver</groupId>
+        <artifactId>mssql-jdbc</artifactId>
+        <version>12.6.1.jre11</version> <!-- use jre8/jre17 depending on your Java version -->
+    </dependency>
+
+    <!-- Logging (Hibernate needs SLF4J) -->
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>2.0.12</version>
+    </dependency>
     </dependencies>
 
 </project>

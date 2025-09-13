@@ -6,12 +6,17 @@ import org.slf4j.LoggerFactory;
 import in.parthi.common.Properties;
 import in.parthi.core.model.product.Product;
 import in.parthi.core.model.transaction.Transaction;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 public class Logistics {
 
     private static final Logger logger = LoggerFactory.getLogger(Logistics.class);
 
 
     public static void main(String[] args) {
+     
+
         Logistics logistics = new Logistics();
         ProductInterface productInterface = new ProductInterface();
         TransactionInterface transactionInterface = new TransactionInterface();
@@ -23,6 +28,7 @@ public class Logistics {
             switch (option) {
                 case 1:
                     System.out.println("============Adding Product==========");
+
                     System.out.println(productInterface.addProduct());
                     break;
                 case 2:

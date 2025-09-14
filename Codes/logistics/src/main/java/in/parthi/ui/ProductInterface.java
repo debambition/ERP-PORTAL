@@ -53,9 +53,9 @@ public class ProductInterface {
         String hasMoreProduct = "N";
         List<Product> productList = new ArrayList<>();
         // Calling addproduct from Product model
-        AddProduct addProduct = new AddProduct(); 
+        AddProduct addProduct = new AddProduct();
 
-        // Call the add transactions from transaction model 
+        // Call the add transactions from transaction model
         Transaction transaction = new Transaction();
         transactionInterface.addTransaction(transaction);
         addProduct.setTransaction(transaction);
@@ -74,7 +74,7 @@ public class ProductInterface {
 
         addProduct.setProduct(productList);
         response = productService.addProduct(addProduct);
-        
+
         response = numberOfProducts + " products added successfully";
 
         return response;
@@ -83,6 +83,7 @@ public class ProductInterface {
 
     /**
      * This method take a product details and to add the product list.
+     * 
      * @return Returns a responce message for the addition action of product
      */
     public String addProduct(List<Product> productList) {
@@ -109,15 +110,15 @@ public class ProductInterface {
 
             //
             System.out.print("Enter Product ID: ");
-            product.setId(sc.nextLine());
+            product.setId(sc.nextLine().toUpperCase());
 
             //
             System.out.print("Enter Product Category: ");
-            product.setCategory(sc.nextLine());
+            product.setCategory(sc.nextLine().toUpperCase());
 
             //
             System.out.print("Enter Product Name: ");
-            product.setName(sc.nextLine());
+            product.setName(sc.nextLine().toUpperCase());
 
             System.out.print("Enter Product Description: ");
             product.setDescription(sc.nextLine());
@@ -169,16 +170,16 @@ public class ProductInterface {
             product.setStatus(Properties.STATUS_AVAILABLE);
 
             //
-            System.out.print("Enter Product ID: ");
-            product.setId(sc.nextLine());
+            System.out.print("Enter Product ID (e.g ABC-001): ");
+            product.setId(sc.nextLine().toUpperCase());
 
             //
             System.out.print("Enter Product Category: ");
-            product.setCategory(sc.nextLine());
+            product.setCategory(sc.nextLine().toUpperCase());
 
             //
             System.out.print("Enter Product Name: ");
-            product.setName(sc.nextLine());
+            product.setName(sc.nextLine().toUpperCase());
 
             System.out.print("Enter Product Description: ");
             product.setDescription(sc.nextLine());
@@ -204,7 +205,7 @@ public class ProductInterface {
     public String returnTovendor() {
         String response = null;
         Scanner sc = Properties.getSacnnerInstance();
-        //Adding transaction details before updateing the product status
+        // Adding transaction details before updateing the product status
         transactionInterface.addTransaction();
         sc.nextLine();
         logger.info("Taking product id from the user");

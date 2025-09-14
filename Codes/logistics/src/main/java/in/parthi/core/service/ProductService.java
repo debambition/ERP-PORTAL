@@ -20,13 +20,16 @@ public class ProductService {
      * @throws RuntimeException if the product is unavailable in the database.
      */
     public Product getProduct(String id) {
-        Product response = null;
+        Product product = null;
         try {
-            response = productRepo.getProduct(id);
+            product = productRepo.getProduct(id);
+            if (product == null) {
+                logger.warn("Product with id: " + id + " not found in database");
+            }
         } catch (RuntimeException e) {
             logger.error("Exception occured while adding product: " + e.getLocalizedMessage());
         }
-        return response;
+        return product;
     }
 
     /**
@@ -37,8 +40,18 @@ public class ProductService {
      */
     public String addProduct(Product product) {
         String response = "";
+        Product temProduct = null;
         try {
-            response = productRepo.addProduct(product);
+
+            //check the product id is already there or not
+            temProduct = this.getProduct(product.getId());
+            if(temProduct == null){
+                response = productRepo.addProduct(product);
+            }else{
+                response = "The product with id " + product.getId() + " Already exists. Addition failed";
+            }
+
+            
         } catch (RuntimeException e) {
             response = e.getLocalizedMessage();
             logger.error("Exception occured while adding product: " + e.getLocalizedMessage());
@@ -56,13 +69,13 @@ public class ProductService {
         String response = "";
         try {
             response = transactionService.addTransaction(addProduct.getTransaction());
-            if (response.contains("added successfully")){
-                for(Product product: addProduct.getProduct()){
+            if (response.contains("added successfully")) {
+                for (Product product : addProduct.getProduct()) {
                     response = productRepo.addProduct(product);
                 }
-                
+
             }
-            
+
         } catch (RuntimeException e) {
             response = e.getLocalizedMessage();
             logger.error("Exception occured while adding product: " + e.getLocalizedMessage());
@@ -70,29 +83,28 @@ public class ProductService {
         return response;
     }
 
-     /**
-     * This method take a product details and  remove product from the database.
+    /**
+     * This method take a product details and remove product from the database.
      * 
      * @param id that need to be delete to the database
      * @return Returns the responce
      */
-    public String returnToVendor(String id){
-        //String response = "";
+    public String returnToVendor(String id) {
+        // String response = "";
         String response = null;
-        try{
-           
-           response = productRepo.returnToVendor(id);
-        }
-        catch (RuntimeException e){
-                  
+        try {
+
+            response = productRepo.returnToVendor(id);
+        } catch (RuntimeException e) {
+
             response = e.getLocalizedMessage();
         }
 
         return response;
-        
+
 
     }
-    
+
 
 
 }

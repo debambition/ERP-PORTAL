@@ -14,7 +14,6 @@ import jakarta.persistence.Persistence;
 public class ProductRepo {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductRepo.class);
-    List<Product> productList = new ArrayList<>();
 
     /**
      * This method take a an procuct id and retrieve the product from the database.
@@ -23,24 +22,11 @@ public class ProductRepo {
      * @return Returns the product
      * @throws RuntimeException if the product is unavailable in the database.
      */
-    public Product getProduct(String id) throws RuntimeException {// Create a NotFound Exception
+    public Product getProduct(String id) {// Create a NotFound Exception
         Product product = null;
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Logistic");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         product = entityManager.find(Product.class, id);
-
-        for (Product tmpProduct : productList) {
-            if (tmpProduct.getId().equalsIgnoreCase(id)) {
-                product = tmpProduct;
-                logger.info("Product with id: " + id + " found in database");
-            }
-
-        }
-
-        if (product == null) {
-            logger.warn("Product with id: " + id + " not found in database");
-            throw new RuntimeException("The product with id " + id + " Not Found");
-        }
 
         entityManager.close();
         entityManagerFactory.close();
@@ -61,29 +47,12 @@ public class ProductRepo {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Logistic");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-
         String response = "";
-        boolean hasProduct = false;
-        for (Product tmpProduct : productList) {
-            if (tmpProduct.getId().equalsIgnoreCase(product.getId())) {
-                hasProduct = true;
-                break;
-            }
-
-        }
-        if (hasProduct) {
-            logger.warn("Product with id: " + product.getId() + " already available in database");
-
-            throw new RuntimeException("The product with id " + product.getId() + " Already present in database, Unable to create the product");
-
-
-
-        }
 
         //add product and save to db
         entityManager.persist(product);
         entityManager.getTransaction().commit();
-         response = "Product added successfully";
+        response = "Product added successfully";
         logger.info("Product with id: " + product.getId() + " added to the database");
         entityManager.close();
         entityManagerFactory.close();
@@ -102,27 +71,27 @@ public class ProductRepo {
 
     public String returnToVendor(String id) throws RuntimeException {
         
-        boolean hasProduct = true;
+        // boolean hasProduct = true;
         String response = null;
 
-        for (Product tempProduct : productList) {
-            if (tempProduct.getId().equalsIgnoreCase(id)) {
-                tempProduct.setStatus(Properties.STATUS_RETURNED);
-                LocalDate today = LocalDate.now();
-                tempProduct.setStockOutDate(today);
-                hasProduct = true;
-                response = "Product with id "+id+" updated successfully";
-                logger.info(response);
-                break;
-            }
+        // for (Product tempProduct : productList) {
+        //     if (tempProduct.getId().equalsIgnoreCase(id)) {
+        //         tempProduct.setStatus(Properties.STATUS_RETURNED);
+        //         LocalDate today = LocalDate.now();
+        //         tempProduct.setStockOutDate(today);
+        //         hasProduct = true;
+        //         response = "Product with id "+id+" updated successfully";
+        //         logger.info(response);
+        //         break;
+        //     }
 
 
-            if (!hasProduct) {
-                logger.warn("Product with id "+id+" not found: Update failed");
-                throw new RuntimeException("Product with id "+id+" not found: Update failed");
-            }
+        //     if (!hasProduct) {
+        //         logger.warn("Product with id "+id+" not found: Update failed");
+        //         throw new RuntimeException("Product with id "+id+" not found: Update failed");
+        //     }
 
-        }
+        // }
 
         return response;
 

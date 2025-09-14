@@ -1,5 +1,6 @@
 package in.parthi.common;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Properties {
@@ -10,6 +11,7 @@ public class Properties {
     private static Scanner sc = new Scanner(System.in);
 
     public static Scanner getSacnnerInstance() {
+        sc.useLocale(Locale.US);
         return sc;
     }
 }

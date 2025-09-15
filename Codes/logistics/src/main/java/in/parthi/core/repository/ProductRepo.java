@@ -1,11 +1,9 @@
 package in.parthi.core.repository;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import in.parthi.common.Properties;
+
 import in.parthi.core.model.product.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

@@ -17,8 +17,14 @@ public class TransactionService {
      */
     public String addTransaction(Transaction transaction) {
         String response = "";
+        Transaction temTransaction = null;
         try {
-            response = transactionRepo.addTransaction(transaction);
+            //check the transactionb id is already there or not
+            temTransaction = this.getTransaction(transaction.getId());
+            if(temTransaction == null){
+                 response = transactionRepo.addTransaction(transaction);
+            }
+           
         } catch (RuntimeException e) {
             response = e.getLocalizedMessage();
             logger.error("Exception occured while adding Transaction: " + e.getLocalizedMessage());
@@ -36,15 +42,21 @@ public class TransactionService {
 
      public Transaction getTransaction(String id)
      {
-        Transaction response = null;
+        Transaction transaction = null;
         try{
-            response = transactionRepo.getTransaction(id);
+            transaction = transactionRepo.getTransaction(id);
+             if (transaction == null) {
+                
+                logger.info("transaction with id: " + id + " found in database");
+            }
+
         } catch (RuntimeException e) {
             logger.error("Exception occured while retriving the  transaction: " + e.getLocalizedMessage());
 
         }
-        return response;
+        return transaction;
      }
 
 
 }
+

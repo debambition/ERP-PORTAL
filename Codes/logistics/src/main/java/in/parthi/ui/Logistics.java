@@ -51,7 +51,10 @@ public class Logistics {
 
                 case 5:
                     System.out.println("============Adding Transaction==========");
-                    System.out.println(transactionInterface.addTransaction());
+                    response = (transactionInterface.addTransaction());
+                    System.out.println("=============================================================");
+                    System.out.println(response);
+                    System.out.println("=============================================================\n\n");;
                     break;
 
                 case 6:

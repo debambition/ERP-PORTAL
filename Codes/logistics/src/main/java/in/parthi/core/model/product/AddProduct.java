@@ -6,6 +6,7 @@ import in.parthi.core.model.transaction.Transaction;
 public class AddProduct {
     private Transaction transaction;
     private List<Product> product;
+    
 
     public AddProduct() {
     }

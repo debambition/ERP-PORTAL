@@ -46,6 +46,7 @@ public class ProductRepo {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         String response = "";
+        
 
         //add product and save to db
         entityManager.persist(product);
@@ -67,29 +68,26 @@ public class ProductRepo {
      */
 
 
-    public String returnToVendor(String id) throws RuntimeException {
+    public String returnToVendor(Product product) throws RuntimeException {
         
-        // boolean hasProduct = true;
-        String response = null;
+        //
+         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Logistic");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        String response = "";
+        //product = entityManager.find(Product.class, id);
 
-        // for (Product tempProduct : productList) {
-        //     if (tempProduct.getId().equalsIgnoreCase(id)) {
-        //         tempProduct.setStatus(Properties.STATUS_RETURNED);
-        //         LocalDate today = LocalDate.now();
-        //         tempProduct.setStockOutDate(today);
-        //         hasProduct = true;
-        //         response = "Product with id "+id+" updated successfully";
-        //         logger.info(response);
-        //         break;
-        //     }
+         // product and save to db
+        entityManager.merge(product);
+        entityManager.getTransaction().commit();
+        response = "Product added successfully";
+        logger.info("Product with id: " + product.getId() + " added to the database");
+        entityManager.close();
+        entityManagerFactory.close();
+
+        
 
 
-        //     if (!hasProduct) {
-        //         logger.warn("Product with id "+id+" not found: Update failed");
-        //         throw new RuntimeException("Product with id "+id+" not found: Update failed");
-        //     }
-
-        // }
 
         return response;
 

@@ -87,7 +87,7 @@ public class ProductInterface {
         Scanner sc = Properties.getSacnnerInstance();
         sc.nextLine();
         logger.info("Start taking product details from user");
-       // Product product = new Product();
+      
         try {
             // Take Stocking date from user
             LocalDate today = LocalDate.now();
@@ -124,9 +124,6 @@ public class ProductInterface {
 
             System.out.print("Enter Product mrp: ");
             product.setMrp(sc.nextDouble());
-
-            // response = productService.addProduct(product);
-           // productList.add(product);
 
         } catch (Exception e) {
             logger.error(e.getLocalizedMessage());

@@ -1,14 +1,14 @@
 package in.parthi.core.repository;
-
-import java.util.ArrayList;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import in.parthi.core.model.transaction.Transaction;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class TransactionRepo {
     private static final Logger logger = LoggerFactory.getLogger(TransactionRepo.class);
-    List<Transaction> transactionList = new ArrayList<>();
+    
 
     /**
     * This method take a an procuct id and retrieve the product from the database.
@@ -18,17 +18,6 @@ public class TransactionRepo {
     * @throws RuntimeException if the product is unavailable in the database.
     */
 
-    public Transaction findById(String id) {
-        logger.info("Finding the transaction with id: {}", id);
-        return transactionList.stream().filter(transaction -> transaction.getId().equals(id)).findFirst()
-                .orElseThrow(() -> new RuntimeException("Transaction with id: " + id + " is not available"));
-
-    }
-
-    public List<Transaction> findAll() {
-        logger.info("Fetching all transactions");
-        return transactionList;
-    }
 
      /**
      * This method take a an transaction id and retrieve the transaction from the database.
@@ -40,19 +29,14 @@ public class TransactionRepo {
     
      public Transaction getTransaction(String id) throws RuntimeException {// Create a NotFound Exception
         Transaction transaction = null;
-        for (Transaction tmpTransaction : transactionList) {
-            if (tmpTransaction.getId().equalsIgnoreCase(id)) {
-                transaction = tmpTransaction;
-                logger.info("transaction with id: " + id + " found in database");
-            }
+         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Logistic");
+         EntityManager entityManager = entityManagerFactory.createEntityManager();
+         transaction = entityManager.find(Transaction.class, id);
 
-        }
-
-        if (transaction == null) {
-            logger.warn("Transaction with id: " + id + " not found in database");
-            throw new RuntimeException("The Transaction with id " + id + " Not Found");
-        }
-
+         entityManager.close();
+         entityManagerFactory.close();
+       
+         
         return transaction;
 
     }
@@ -66,26 +50,20 @@ public class TransactionRepo {
      */
     public String addTransaction(Transaction transaction) throws RuntimeException {// Create a NotFound Exception
         String response = "";
-        boolean hasTransaction = false;
-        for (Transaction tmpTransaction : transactionList) {
-            if (tmpTransaction.getId().equalsIgnoreCase(transaction.getId())) {
-                hasTransaction = true;
-                break;
-            }
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Logistic");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
 
-        }
-        if (hasTransaction) {
-            logger.warn("Transaction with id: " + transaction.getId() + " already available in database");
-            throw new RuntimeException("The transaction with id " + transaction.getId()
-                    + " Already present in database, Unable to create the transaction");
-        } else {
-            transactionList.add(transaction);
-            response = "Transaction with id: " + transaction.getId() + " added successfully";
-            logger.info("Transaction with id: " + transaction.getId() + " added successfully");
-        }
-
+        //add transaction and save to db
+        entityManager.persist(transaction);
+        entityManager.getTransaction().commit();
+        response = "Transaction added successfully";
+         logger.info("Transaction with id: " + transaction.getId() + " added successfully");
+        entityManager.close();
+        entityManagerFactory.close();
         return response;
 
+        
     }
 }
 

@@ -1,7 +1,11 @@
 package in.parthi.core.service;
 
+import java.time.LocalDate;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import in.parthi.common.Properties;
 import in.parthi.core.model.product.AddProduct;
 import in.parthi.core.model.product.Product;
 import in.parthi.core.repository.ProductRepo;
@@ -89,22 +93,36 @@ public class ProductService {
      * @param id that need to be delete to the database
      * @return Returns the responce
      */
-    public String returnToVendor(String id) {
-        // String response = "";
-        String response = null;
-        try {
+public String returnToVendor(String id) {
+     String response = "";
 
-            response = productRepo.returnToVendor(id);
-        } catch (RuntimeException e) {
+    try {
+        // Fetch product
+        Product product = productRepo.getProduct(id);
 
-            response = e.getLocalizedMessage();
+        if (product != null) {
+            // Apply business logic here
+            product.setStatus(Properties.STATUS_RETURNED);
+            product.setStockOutDate(LocalDate.now());
+
+            response = productRepo.returnToVendor(product);
+
+
+            response = "Product with id " + id + " updated successfully";
+            logger.info(response);
+        } else {
+            response = "Product with id " + id + " not found";
+            logger.warn(response);
         }
 
-        return response;
-
-
+    } catch (RuntimeException e) {
+        response = e.getLocalizedMessage();
+        logger.error("Exception in returnToVendor: " + response);
     }
 
-
-
+    return response;
 }
+}
+
+
+

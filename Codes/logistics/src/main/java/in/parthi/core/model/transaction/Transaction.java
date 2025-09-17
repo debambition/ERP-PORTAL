@@ -14,8 +14,16 @@ import java.util.UUID;
 import in.parthi.common.PaymentMode;
 import in.parthi.common.TransactionCategory;
 import in.parthi.common.TransactionType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+
+
+@Entity
+@Table(name="trade_record")
 public class Transaction {
+    @Id
     private String id;
     private String invoice;
     private String particular;

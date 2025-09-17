@@ -1,8 +1,6 @@
 package in.parthi.ui;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,8 +49,7 @@ public class ProductInterface {
         String txnResponse = "";
         String response = "";
         String hasMoreProduct = "N";
-        List<Product> productList = new ArrayList<>();
-        // Calling addproduct from Product model
+       
         AddProduct addProduct = new AddProduct();
 
         // Call the add transactions from transaction model
@@ -63,7 +60,7 @@ public class ProductInterface {
         // in for loop call the add product
         do {
 
-            productResponse = addProduct(productList);
+            productResponse = addProduct();
             System.out.println(productResponse + "\nDo you want to add more product(s) [Y/N]");
             numberOfProducts++;
             // flush the extra enter
@@ -72,7 +69,6 @@ public class ProductInterface {
 
         } while (hasMoreProduct.equalsIgnoreCase("Y"));
 
-        addProduct.setProduct(productList);
         response = productService.addProduct(addProduct);
 
         response = numberOfProducts + " products added successfully";
@@ -86,12 +82,12 @@ public class ProductInterface {
      * 
      * @return Returns a responce message for the addition action of product
      */
-    public String addProduct(List<Product> productList) {
+    public String addProduct(Product product) {
         String response = "";
         Scanner sc = Properties.getSacnnerInstance();
         sc.nextLine();
         logger.info("Start taking product details from user");
-        Product product = new Product();
+      
         try {
             // Take Stocking date from user
             LocalDate today = LocalDate.now();
@@ -128,9 +124,6 @@ public class ProductInterface {
 
             System.out.print("Enter Product mrp: ");
             product.setMrp(sc.nextDouble());
-
-            // response = productService.addProduct(product);
-            productList.add(product);
 
         } catch (Exception e) {
             logger.error(e.getLocalizedMessage());

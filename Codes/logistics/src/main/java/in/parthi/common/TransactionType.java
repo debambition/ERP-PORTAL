@@ -21,7 +21,7 @@ public enum TransactionType {
             option = sc.nextInt();
 
             if (option >= 1 && option <= TransactionType.values().length) {
-                transaction.setTxnType(TransactionType.values()[option - 1]);
+                transaction.setTxnType(TransactionType.values()[option - 1].toString());
             } else {
                 System.out.println("Please enter a valis option between 1-" + TransactionType.values().length);
 

@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.util.UUID;
 import in.parthi.common.PaymentMode;
 import in.parthi.common.TransactionCategory;
-import in.parthi.common.TransactionType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -27,8 +26,8 @@ public class Transaction {
     private String id;
     private String invoice;
     private String particular;
-    private TransactionType txnType; 
-    private TransactionCategory txnCategory; 
+    private String txnType; 
+    private String txnCategory; 
     private PaymentMode paymentMode;
     private String description;
     private double amount;
@@ -46,7 +45,7 @@ public class Transaction {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Transaction(String invoice, String particular, TransactionType txnType, TransactionCategory txnCategory, PaymentMode paymentMode, String description, double amount, LocalDate transactionDate) {
+    public Transaction(String invoice, String particular, String txnType, String txnCategory, PaymentMode paymentMode, String description, double amount, LocalDate transactionDate) {
         this.id = UUID.randomUUID().toString();
         this.invoice = invoice;
         this.particular = particular;
@@ -86,19 +85,19 @@ public class Transaction {
         this.id = id;
     }
 
-    public TransactionType getTxnType() {
+    public String getTxnType() {
         return this.txnType;
     }
 
-    public void setTxnType(TransactionType txnType) {
+    public void setTxnType(String txnType) {
         this.txnType = txnType;
     }
 
-    public TransactionCategory getTxnCategory() {
+    public String getTxnCategory() {
         return this.txnCategory;
     }
 
-    public void setTxnCategory(TransactionCategory txnCategory) {
+    public void setTxnCategory(String txnCategory) {
         this.txnCategory = txnCategory;
     }
 

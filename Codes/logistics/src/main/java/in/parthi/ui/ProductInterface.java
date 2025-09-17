@@ -5,6 +5,7 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import in.parthi.common.Properties;
+import in.parthi.common.TransactionCategory;
 import in.parthi.core.model.product.AddProduct;
 import in.parthi.core.model.product.Product;
 import in.parthi.core.model.transaction.Transaction;
@@ -49,7 +50,7 @@ public class ProductInterface {
         String txnResponse = "";
         String response = "";
         String hasMoreProduct = "N";
-       
+
         AddProduct addProduct = new AddProduct();
 
         // Call the add transactions from transaction model
@@ -87,7 +88,7 @@ public class ProductInterface {
         Scanner sc = Properties.getSacnnerInstance();
         sc.nextLine();
         logger.info("Start taking product details from user");
-      
+
         try {
             // Take Stocking date from user
             LocalDate today = LocalDate.now();
@@ -163,8 +164,11 @@ public class ProductInterface {
             product.setStatus(Properties.STATUS_AVAILABLE);
 
             //
-            System.out.print("Enter Product ID (e.g ABC-001): ");
-            product.setId(sc.nextLine().toUpperCase());
+            System.out.print("Enter Product ID (e.g ABC-): ");
+            // Get the next product ID and set to the product
+            String prefixID = sc.nextLine().toUpperCase();
+            product.setId(productService.getNextProductId(prefixID));
+            System.out.println("Product Id registered as: " + product.getId());
 
             //
             System.out.print("Enter Product Category: ");
@@ -199,7 +203,7 @@ public class ProductInterface {
         String response = null;
         Scanner sc = Properties.getSacnnerInstance();
         // Adding transaction details before updateing the product status
-        transactionInterface.addTransaction();
+        transactionInterface.addTransaction(TransactionCategory.PRODUCT_COST.toString());
         sc.nextLine();
         logger.info("Taking product id from the user");
         System.out.print("Please enter product id: ");

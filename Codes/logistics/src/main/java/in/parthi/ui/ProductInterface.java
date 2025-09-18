@@ -1,6 +1,7 @@
 package in.parthi.ui;
 
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -147,6 +148,8 @@ public class ProductInterface {
         LocalDate today = LocalDate.now();
         LocalDate inDate;
         Product product = new Product();
+        double costPrice = 0.0;
+        boolean value = false;
         try {
             // Take Stockin date from user
             do{
@@ -190,6 +193,24 @@ public class ProductInterface {
             System.out.print("Enter Product Description: ");
             product.setDescription(sc.nextLine());
 
+        
+            System.out.print("Enter Product Cost: ");
+            while(!value){
+                try{
+                    costPrice = sc.nextDouble();
+                    value = true;
+                    //logger.info("Cost price entered {}",costPrice);
+
+                } catch (InputMismatchException e){
+                     sc.nextLine(); // capture the wrong input
+                    System.out.print("Invalid input, please enter a number or decimal value\n");
+                    logger.warn("Invalid product cost input detected: {}");
+                    break;
+                }
+            }
+            product.setCostPrice(costPrice);
+                
+            
             System.out.print("Enter Product Cost: ");
             product.setCostPrice(sc.nextDouble());
 
@@ -222,9 +243,6 @@ public class ProductInterface {
         return response;
 
     }
-
-
-
 }
 
 

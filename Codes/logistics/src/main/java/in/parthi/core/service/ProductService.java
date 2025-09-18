@@ -134,8 +134,9 @@ public class ProductService {
                 nextId = prefixID+"001";
             }else{
                 maxId = maxId.split("-")[1];
-                num = Integer.parseInt(maxId);
-                nextId = prefixID + "00" +(++num);
+                num = Integer.parseInt(maxId) + 1;
+                 nextId = String.format("%s%03d", prefixID, num);
+                //nextId = prefixID + "00" +(++num);
             }
         } catch (RuntimeException e) {
             logger.error("Exception occured while adding product: " + e.getLocalizedMessage());

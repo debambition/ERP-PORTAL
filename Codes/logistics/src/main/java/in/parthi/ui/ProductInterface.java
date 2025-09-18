@@ -1,6 +1,7 @@
 package in.parthi.ui;
 
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,9 +40,9 @@ public class ProductInterface {
     }
 
     /**
-     * This method take a product details and Transactions to the database.
+     * This method takes entry for a single product or multiple products after purchased from the vendor and Transactions details for that purchased added to the database.
      * 
-     * @return Returns a response message for the addition action of product
+     * @return Returns a response message for the addition of product/s added succesfully
      */
     public String addProducts() {
         Scanner sc = Properties.getSacnnerInstance();
@@ -79,9 +80,9 @@ public class ProductInterface {
     }
 
     /**
-     * This method take a product details and to add the product list.
+     * This method take a product details recently purchased product from vendor and to the database.
      * 
-     * @return Returns a responce message for the addition action of product
+     * @return Returns a responce message for the addition done successfully.
      */
     public String addProduct(Product product) {
         String response = "";
@@ -93,8 +94,6 @@ public class ProductInterface {
             // Take Stocking date from user
             LocalDate today = LocalDate.now();
             System.out.print("Enter Stockin Date e.g 2025-09-23 (default: " + today.toString() + "): ");
-
-
             String strDate = sc.nextLine();
             if (strDate.length() == 0) {
                 product.setStockInDate(today);
@@ -137,29 +136,41 @@ public class ProductInterface {
     }
 
     /**
-     * This method take a product details and call repo class to add the product.
+     * This method take a single product details and call service class to add the product to the db.
      * 
-     * @return Returns a responce message for the addition action of product
+     * @return Returns a responce message for the addition action of product done successfully
      */
     public String addProduct() {
         String response = "";
+        logger.info("Start taking product details from user");
         Scanner sc = Properties.getSacnnerInstance();
         sc.nextLine();
-        logger.info("Start taking product details from user");
+        LocalDate today = LocalDate.now();
+        LocalDate inDate;
         Product product = new Product();
+        double costPrice = 0.0;
+        boolean value = false;
         try {
-            // Take Stocking date from user
-            LocalDate today = LocalDate.now();
-            System.out.print("Enter Stockin Date e.g 2025-09-23 (default: " + today.toString() + "): ");
-
-
-            String strDate = sc.nextLine();
-            if (strDate.length() == 0) {
-                product.setStockInDate(today);
-            } else {
-                product.setStockInDate(LocalDate.parse(strDate));
-            }
-
+            // Take Stockin date from user
+            do{
+                System.out.print("Enter Stockin Date e.g 2025-09-23 (default: " + today.toString() + "): ");
+                //sc.nextLine(); // to flush the extra enter
+                String strDate = sc.nextLine();
+                if (strDate.length() == 0) {
+                    product.setStockInDate(today);
+                    break;
+                } else {
+                    inDate = LocalDate.parse(strDate);
+                    if(inDate.compareTo(today) <= 0){
+                        product.setStockInDate(inDate);
+                        break;
+                    } else {
+                        System.out.println("Please enter a valid date. Future date is not a valid");
+                    }
+                    
+                }
+            } while (true);
+            
             //
             product.setStatus(Properties.STATUS_AVAILABLE);
 
@@ -169,6 +180,7 @@ public class ProductInterface {
             String prefixID = sc.nextLine().toUpperCase();
             product.setId(productService.getNextProductId(prefixID));
             System.out.println("Product Id registered as: " + product.getId());
+            
 
             //
             System.out.print("Enter Product Category: ");
@@ -181,6 +193,24 @@ public class ProductInterface {
             System.out.print("Enter Product Description: ");
             product.setDescription(sc.nextLine());
 
+        
+            System.out.print("Enter Product Cost: ");
+            while(!value){
+                try{
+                    costPrice = sc.nextDouble();
+                    value = true;
+                    //logger.info("Cost price entered {}",costPrice);
+
+                } catch (InputMismatchException e){
+                     sc.nextLine(); // capture the wrong input
+                    System.out.print("Invalid input, please enter a number or decimal value\n");
+                    logger.warn("Invalid product cost input detected: {}");
+                    break;
+                }
+            }
+            product.setCostPrice(costPrice);
+                
+            
             System.out.print("Enter Product Cost: ");
             product.setCostPrice(sc.nextDouble());
 
@@ -213,9 +243,6 @@ public class ProductInterface {
         return response;
 
     }
-
-
-
 }
 
 

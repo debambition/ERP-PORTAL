@@ -12,7 +12,6 @@ package in.parthi.core.model.transaction;
 import java.time.LocalDate;
 import java.util.UUID;
 import in.parthi.common.PaymentMode;
-import in.parthi.common.TransactionCategory;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;

@@ -94,11 +94,11 @@ public class ProductRepo {
      * @throws RuntimeException if the product is unavailable in the database.
      */
     public String getNextProductId(String prefix) {
-        String maxId = "";
+        String maxId = null;
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Logistic");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        TypedQuery<String> query = entityManager.createQuery("SELECT MAX(p.Id) FROM Product p WHERE p.Id LIKE :prefix", String.class);
+        TypedQuery<String> query = entityManager.createQuery("SELECT MAX(p.id) FROM Product p WHERE p.id LIKE :prefix", String.class);
         query.setParameter("prefix", prefix + "%");
 
         maxId = query.getSingleResult();

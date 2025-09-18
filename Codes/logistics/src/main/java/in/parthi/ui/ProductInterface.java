@@ -145,8 +145,18 @@ public class ProductInterface {
         logger.info("Start taking product details from user");
         Scanner sc = Properties.getSacnnerInstance();
         sc.nextLine();
+
+        boolean valid = false;
+        boolean validName = false;
+        boolean validMrp = false;
+        String productName = "";
+        String productCatagory = "";
+        double mrpPrice = 0.0;
+        logger.info("Start taking product details from user");
+
         LocalDate today = LocalDate.now();
         LocalDate inDate;
+
         Product product = new Product();
         double costPrice = 0.0;
         boolean value = false;
@@ -184,11 +194,53 @@ public class ProductInterface {
 
             //
             System.out.print("Enter Product Category: ");
-            product.setCategory(sc.nextLine().toUpperCase());
+            while(!valid){
+                try{
+                    productCatagory = sc.nextLine().toUpperCase();
 
+                    if(productCatagory.length() >= 1 && productCatagory.length() <= 5){
+                        valid = true;
+                        logger.info("Product Category entered: ");
+                    }else{
+                        System.out.print("Category cannot be blank. Please enter a valid category.\n");
+                        logger.warn("Blank category input detected.");
+                        System.out.print("Re-enter Product Category: ");
+                        
+
+                    }
+
+                }catch(RuntimeException e) {
+                    System.out.print("Error reading input. Please try again.\n");
+                    logger.error("Exception while reading product name: {}");
+                    break;
+
+                }
+            }
+            product.setCategory(sc.nextLine().toUpperCase());
+            
             //
             System.out.print("Enter Product Name: ");
-            product.setName(sc.nextLine().toUpperCase());
+            while (!validName) {
+                try {
+                    productName = sc.nextLine(); // user input + remove extra spaces
+
+                    if (productName.length() >= 5 && productName.length() <= 50) {
+                        validName = true;
+                        logger.info("Product name entered:  ");
+                    } else {
+                        System.out.print("Invalid input, product name must be between 5 and 50 characters.\n");
+                        logger.warn("Invalid product name length: ");
+                        System.out.print("Please re-enter Product Name: ");
+                        sc.nextLine(); 
+                    }
+
+                } catch (RuntimeException e) {
+                    System.out.print("Error reading input. Please try again.\n");
+                    //logger.error("Exception while reading product name: {}", e.getMessage());
+                    break;
+                }
+            }
+            product.setName(productName);
 
             System.out.print("Enter Product Description: ");
             product.setDescription(sc.nextLine());
@@ -215,7 +267,20 @@ public class ProductInterface {
             product.setCostPrice(sc.nextDouble());
 
             System.out.print("Enter Product mrp: ");
-            product.setMrp(sc.nextDouble());
+             while(!validMrp){
+                try{
+                    mrpPrice = sc.nextDouble();
+                    validMrp = true;
+                    //logger.info("Mrp price entered {}",mrpprice);
+
+                } catch (InputMismatchException e){
+                     sc.nextLine(); // capture the wrong input
+                    System.out.print("Invalid input, please enter a number or decimal value\n");
+                    logger.warn("Invalid product mrp input detected: {}");
+                    break;
+                }
+            }       
+            product.setMrp(mrpPrice);
 
             response = productService.addProduct(product);
 

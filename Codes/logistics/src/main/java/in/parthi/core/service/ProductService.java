@@ -47,15 +47,15 @@ public class ProductService {
         Product temProduct = null;
         try {
 
-            //check the product id is already there or not
+            // check the product id is already there or not
             temProduct = this.getProduct(product.getId());
-            if(temProduct == null){
+            if (temProduct == null) {
                 response = productRepo.addProduct(product);
-            }else{
+            } else {
                 response = "The product with id " + product.getId() + " Already exists. Addition failed";
             }
 
-            
+
         } catch (RuntimeException e) {
             response = e.getLocalizedMessage();
             logger.error("Exception occured while adding product: " + e.getLocalizedMessage());
@@ -93,36 +93,55 @@ public class ProductService {
      * @param id that need to be delete to the database
      * @return Returns the responce
      */
-public String returnToVendor(String id) {
-     String response = "";
+    public String returnToVendor(String id) {
+        String response = "";
 
-    try {
-        // Fetch product
-        Product product = productRepo.getProduct(id);
+        try {
+            // Fetch product
+            Product product = productRepo.getProduct(id);
 
-        if (product != null) {
-            // Apply business logic here
-            product.setStatus(Properties.STATUS_RETURNED);
-            product.setStockOutDate(LocalDate.now());
+            if (product != null) {
+                // Apply business logic here
+                product.setStatus(Properties.STATUS_RETURNED);
+                product.setStockOutDate(LocalDate.now());
 
-            response = productRepo.returnToVendor(product);
+                response = productRepo.returnToVendor(product);
 
 
-            response = "Product with id " + id + " updated successfully";
-            logger.info(response);
-        } else {
-            response = "Product with id " + id + " not found";
-            logger.warn(response);
+                response = "Product with id " + id + " updated successfully";
+                logger.info(response);
+            } else {
+                response = "Product with id " + id + " not found";
+                logger.warn(response);
+            }
+
+        } catch (RuntimeException e) {
+            response = e.getLocalizedMessage();
+            logger.error("Exception in returnToVendor: " + response);
         }
 
-    } catch (RuntimeException e) {
-        response = e.getLocalizedMessage();
-        logger.error("Exception in returnToVendor: " + response);
+        return response;
     }
 
-    return response;
-}
-}
 
+    public String getNextProductId(String prefixID){
+        String nextId = "";
+        String maxId = "";
+        int num = 0;
+        try {
+            maxId = productRepo.getNextProductId(prefixID);
+            if (maxId == null || maxId.length() == 0) {
+                nextId = prefixID+"001";
+            }else{
+                maxId = maxId.split("-")[1];
+                num = Integer.parseInt(maxId);
+                nextId = prefixID + "00" +(++num);
+            }
+        } catch (RuntimeException e) {
+            logger.error("Exception occured while adding product: " + e.getLocalizedMessage());
+        }
+        return nextId;
+    }
+}
 
 

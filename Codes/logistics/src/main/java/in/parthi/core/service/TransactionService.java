@@ -19,12 +19,12 @@ public class TransactionService {
         String response = "";
         Transaction temTransaction = null;
         try {
-            //check the transactionb id is already there or not
+            // check the transactionb id is already there or not
             temTransaction = this.getTransaction(transaction.getId());
-            if(temTransaction == null){
-                 response = transactionRepo.addTransaction(transaction);
+            if (temTransaction == null) {
+                response = transactionRepo.addTransaction(transaction);
             }
-           
+
         } catch (RuntimeException e) {
             response = e.getLocalizedMessage();
             logger.error("Exception occured while adding Transaction: " + e.getLocalizedMessage());
@@ -39,14 +39,12 @@ public class TransactionService {
      * @return Returns a transaction
      * @throws RuntimeException if the transaction is unavailable in the database.
      */
-
-     public Transaction getTransaction(String id)
-     {
+    public Transaction getTransaction(String id) {
         Transaction transaction = null;
-        try{
+        try {
             transaction = transactionRepo.getTransaction(id);
-             if (transaction == null) {
-                
+            if (transaction == null) {
+
                 logger.info("transaction with id: " + id + " found in database");
             }
 
@@ -55,7 +53,7 @@ public class TransactionService {
 
         }
         return transaction;
-     }
+    }
 
 
 }

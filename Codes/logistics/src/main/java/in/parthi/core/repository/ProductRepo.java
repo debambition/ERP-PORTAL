@@ -8,6 +8,7 @@ import in.parthi.core.model.product.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 
 public class ProductRepo {
 
@@ -46,9 +47,8 @@ public class ProductRepo {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         String response = "";
-        
 
-        //add product and save to db
+        // add product and save to db
         entityManager.persist(product);
         entityManager.getTransaction().commit();
         response = "Product added successfully";
@@ -58,7 +58,6 @@ public class ProductRepo {
         return response;
     }
 
-
     /**
      * This method take a product id and check with the database.
      * 
@@ -66,18 +65,16 @@ public class ProductRepo {
      * @return Returns responce
      * @throws RuntimeException if the product is not available in the database.
      */
-
-
     public String returnToVendor(Product product) throws RuntimeException {
-        
+
         //
-         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Logistic");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Logistic");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         String response = "";
-        //product = entityManager.find(Product.class, id);
+        // product = entityManager.find(Product.class, id);
 
-         // product and save to db
+        // product and save to db
         entityManager.merge(product);
         entityManager.getTransaction().commit();
         response = "Product added successfully";
@@ -85,14 +82,34 @@ public class ProductRepo {
         entityManager.close();
         entityManagerFactory.close();
 
-        
-
-
-
         return response;
 
     }
 
+    /**
+     * This method take a procuct id prefix and retrieve the next product id from the database.
+     * 
+     * @param String id prefix with which the product needs to be found
+     * @return Returns the largest product id
+     * @throws RuntimeException if the product is unavailable in the database.
+     */
+    public String getNextProductId(String prefix) {
+        String maxId = "";
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Logistic");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        TypedQuery<String> query = entityManager.createQuery("SELECT MAX(p.Id) FROM Product p WHERE p.Id LIKE :prefix", String.class);
+        query.setParameter("prefix", prefix + "%");
+
+        maxId = query.getSingleResult();
+        logger.info("Largest Product ID: " + maxId);
+        ///
+
+        entityManager.close();
+        entityManagerFactory.close();
+
+        return maxId;
+    }
 
 
 }

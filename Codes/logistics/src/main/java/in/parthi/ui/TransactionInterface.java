@@ -38,12 +38,12 @@ public class TransactionInterface {
 
 
     /**
-     * This method take a transaction details and call repo class to add the transaction.
+     * This method is called from the add Products with a transaction instance to make a consolidated AddProduct Object.
      * 
      * @return Returns a responce message for the addition action of transaction
      */
     public void addTransaction(Transaction transaction) {
-        //String response = null;
+        // String response = null;
         logger.info("Start taking transaction details from user");
         Scanner sc = Properties.getSacnnerInstance();
         sc.nextLine();
@@ -92,36 +92,59 @@ public class TransactionInterface {
             System.out.print("Enter Amount: ");
             transaction.setAmount(sc.nextDouble());
 
-           // response = transactionService.addTransaction(transaction);
-           transactionService.addTransaction(transaction);
+            // response = transactionService.addTransaction(transaction);
+            transactionService.addTransaction(transaction);
         } catch (RuntimeException e) {
-            //response = e.getLocalizedMessage();
+            // response = e.getLocalizedMessage();
             e.getLocalizedMessage();
             logger.error("Exception occured while adding transaction: " + e.getLocalizedMessage());
         }
     }
 
-        /**
-     * This method take a transaction details and call repo class to add the transaction.
+    /**
+     * This method take a transaction category or a blank string to add the transaction.
      * 
      * @return Returns a responce message for the addition action of transaction
      */
-    public String addTransaction() {
+    public String addTransaction(String txnCategory) {
         String response = "";
         logger.info("Start taking transaction details from user");
         Scanner sc = Properties.getSacnnerInstance();
         sc.nextLine();
+        LocalDate today = LocalDate.now();
+        LocalDate inDate;
         Transaction transaction = new Transaction();
+
+        // Setting the Transaction category when the user select the options
+        // Usend Enum for the payment mode.
+        if (txnCategory == null || txnCategory.length() == 0) {
+            System.out.println("Enter Transaction Category: ");
+            TransactionCategory.choose(transaction);
+        }else{
+            transaction.setTxnCategory(txnCategory);
+        }
+
+
         try {
             // Take transaction details from user
-            LocalDate today = LocalDate.now();
-            System.out.print("Enter Stockin Date e.g 2025-09-23 (default: " + today.toString() + "): ");
-            String strDate = sc.nextLine();
-            if (strDate.length() == 0) {
-                transaction.setTransactionDate(today);
-            } else {
-                transaction.setTransactionDate(LocalDate.parse(strDate));
-            }
+            do {
+                System.out.print("Enter Stockin Date e.g 2025-09-23 (default: " + today.toString() + "): ");
+                sc.nextLine();// to flush the extra enter
+                String strDate = sc.nextLine();
+                if (strDate.length() == 0) {
+                    transaction.setTransactionDate(today);
+                    break;
+                } else {
+                    inDate = LocalDate.parse(strDate);
+                    if (inDate.compareTo(today) <= 0) {
+                        transaction.setTransactionDate(inDate);
+                        break;
+                    } else {
+                        System.out.println("Please enter a valid date. Future date is not a valid input");
+                    }
+
+                }
+            } while (true);
 
             //
             System.out.print("Enter Invoice Id(if any): ");
@@ -140,12 +163,6 @@ public class TransactionInterface {
             // Usend Enum for the payment mode.
             System.out.println("Enter Payment Mode: ");
             PaymentMode.choose(transaction);
-
-            // Setting the Transaction category when the user select the options
-            // Usend Enum for the payment mode.
-            System.out.println("Enter Transaction Category: ");
-            TransactionCategory.choose(transaction);
-
 
             // flushing the extra enter
             sc.nextLine();

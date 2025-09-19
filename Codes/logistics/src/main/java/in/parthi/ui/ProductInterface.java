@@ -198,15 +198,13 @@ public class ProductInterface {
                 try{
                     productCatagory = sc.nextLine().toUpperCase();
 
-                    if(productCatagory.length() >= 1 && productCatagory.length() <= 5){
+                    if(productCatagory.length() >= 2){
                         valid = true;
                         logger.info("Product Category entered: ");
                     }else{
                         System.out.print("Category cannot be blank. Please enter a valid category.\n");
                         logger.warn("Blank category input detected.");
                         System.out.print("Re-enter Product Category: ");
-                        
-
                     }
 
                 }catch(RuntimeException e) {
@@ -216,22 +214,23 @@ public class ProductInterface {
 
                 }
             }
-            product.setCategory(sc.nextLine().toUpperCase());
+            product.setCategory(productCatagory);
+            //product.setCategory(sc.nextLine().toUpperCase());
             
             //
             System.out.print("Enter Product Name: ");
             while (!validName) {
                 try {
+
                     productName = sc.nextLine(); // user input + remove extra spaces
 
-                    if (productName.length() >= 5 && productName.length() <= 50) {
+                    if (productName.length() >= 2) {
                         validName = true;
                         logger.info("Product name entered:  ");
                     } else {
-                        System.out.print("Invalid input, product name must be between 5 and 50 characters.\n");
+                        System.out.print("Product name can't be empty.\n");
                         logger.warn("Invalid product name length: ");
-                        System.out.print("Please re-enter Product Name: ");
-                        sc.nextLine(); 
+                        System.out.print("Please re-enter Product Name: ");  
                     }
 
                 } catch (RuntimeException e) {
@@ -250,34 +249,40 @@ public class ProductInterface {
             while(!value){
                 try{
                     costPrice = sc.nextDouble();
-                    value = true;
-                    //logger.info("Cost price entered {}",costPrice);
+                    if(costPrice < 1){
+                        System.out.print("Cost price must be greater 0. Please try again: ");
+                        
+                        logger.info("Cost price entered {}",costPrice);
+                    } else {
+                        value = true;
+                    }
+                    
 
                 } catch (InputMismatchException e){
-                     sc.nextLine(); // capture the wrong input
-                    System.out.print("Invalid input, please enter a number or decimal value\n");
-                    logger.warn("Invalid product cost input detected: {}");
-                    break;
+                    sc.nextLine(); // capture the wrong input
+                    System.out.print("Invalid input, please enter a number or decimal value: ");
+                    logger.warn("Invalid product cost input detected");
+                    //break;
                 }
             }
             product.setCostPrice(costPrice);
-                
             
-            System.out.print("Enter Product Cost: ");
-            product.setCostPrice(sc.nextDouble());
 
             System.out.print("Enter Product mrp: ");
              while(!validMrp){
                 try{
                     mrpPrice = sc.nextDouble();
-                    validMrp = true;
-                    //logger.info("Mrp price entered {}",mrpprice);
-
+                    if(mrpPrice < 1){
+                        System.out.print("Mrp can't be zero. Please try again: ");
+                        logger.info("Mrp price entered {}",mrpPrice);
+                    } else {
+                        validMrp = true;
+                    }
+                    
                 } catch (InputMismatchException e){
                      sc.nextLine(); // capture the wrong input
-                    System.out.print("Invalid input, please enter a number or decimal value\n");
-                    logger.warn("Invalid product mrp input detected: {}");
-                    break;
+                    System.out.print("Invalid input, please enter a number or decimal value: ");
+                    logger.warn("Invalid product mrp input detected");
                 }
             }       
             product.setMrp(mrpPrice);

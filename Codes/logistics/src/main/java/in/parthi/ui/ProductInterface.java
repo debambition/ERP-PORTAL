@@ -185,12 +185,34 @@ public class ProductInterface {
             product.setStatus(Properties.STATUS_AVAILABLE);
 
             //
-            System.out.print("Enter Product ID (e.g ABC-): ");
-            // Get the next product ID and set to the product
-            String prefixID = sc.nextLine().toUpperCase();
-            product.setId(productService.getNextProductId(prefixID));
-            System.out.println("Product Id registered as: " + product.getId());
             
+            boolean validId = false;
+
+            while (!validId) {
+                System.out.print("Enter Product ID (e.g ABC- or ABC-001): ");
+                String input = sc.nextLine().toUpperCase();
+
+                String newId;
+
+                if (input.endsWith("-")) {
+                    // User gave only prefix -> generate next ID
+                    newId = productService.getNextProductId(input);
+                } else {
+                    // User gave full ID -> use directly
+                    newId = input;
+                }
+
+                // Validate uniqueness
+                if (productService.getProduct(newId) != null) {
+                    System.out.println("Product ID already exists, please enter a different ID.");
+                    logger.warn("Duplicate product ID detected: {}", newId);
+                } else {
+                    product.setId(newId);
+                    System.out.println("Product Id registered as: " + product.getId());
+                    validId = true;
+                }
+            }
+
 
             //
             System.out.print("Enter Product Category: ");

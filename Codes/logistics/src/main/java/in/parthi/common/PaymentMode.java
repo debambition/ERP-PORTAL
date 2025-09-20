@@ -23,7 +23,7 @@ public enum PaymentMode {
             option = sc.nextInt();
 
             if (option >= 1 && option <= PaymentMode.values().length) {
-                transaction.setPaymentMode(PaymentMode.values()[option - 1]);
+                transaction.setPaymentMode(PaymentMode.values()[option - 1].toString());
             } else {
                 System.out.println("Please enter a valid option between 1-" + PaymentMode.values().length);
 

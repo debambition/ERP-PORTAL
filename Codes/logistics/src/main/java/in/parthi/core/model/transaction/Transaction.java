@@ -11,7 +11,6 @@ package in.parthi.core.model.transaction;
 
 import java.time.LocalDate;
 import java.util.UUID;
-import in.parthi.common.PaymentMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -27,7 +26,7 @@ public class Transaction {
     private String particular;
     private String txnType; 
     private String txnCategory; 
-    private PaymentMode paymentMode;
+    private String paymentMode;
     private String description;
     private double amount;
     LocalDate transactionDate;
@@ -44,7 +43,7 @@ public class Transaction {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Transaction(String invoice, String particular, String txnType, String txnCategory, PaymentMode paymentMode, String description, double amount, LocalDate transactionDate) {
+    public Transaction(String invoice, String particular, String txnType, String txnCategory, String paymentMode, String description, double amount, LocalDate transactionDate) {
         this.id = UUID.randomUUID().toString();
         this.invoice = invoice;
         this.particular = particular;
@@ -100,11 +99,11 @@ public class Transaction {
         this.txnCategory = txnCategory;
     }
 
-    public PaymentMode getPaymentMode() {
+    public String getPaymentMode() {
         return this.paymentMode;
     }
 
-    public void setPaymentMode(PaymentMode paymentMode) {
+    public void setPaymentMode(String paymentMode) {
         this.paymentMode = paymentMode;
     }
 

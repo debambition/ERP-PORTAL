@@ -50,7 +50,7 @@ public class TransactionInterface {
         try {
             // Take transaction details from user
             LocalDate today = LocalDate.now();
-            System.out.print("Enter Stockin Date e.g 2025-09-23 (default: " + today.toString() + "): ");
+            System.out.print("Enter Transaction Date e.g 2025-09-23 (default: " + today.toString() + "): ");
             String strDate = sc.nextLine();
             if (strDate.length() == 0) {
                 transaction.setTransactionDate(today);
